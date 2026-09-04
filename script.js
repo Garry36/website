@@ -138,17 +138,53 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (demoForm) {
-    demoForm.addEventListener('submit', (e) => {
+    demoForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      demoModal.classList.remove('active');
       
-      // Show Toast Notification
-      toast.classList.add('active');
-      setTimeout(() => {
-        toast.classList.remove('active');
-      }, 4500);
+      const submitBtn = demoForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerText;
+      submitBtn.innerText = 'Submitting Request...';
+      submitBtn.disabled = true;
 
-      demoForm.reset();
+      const formData = new FormData(demoForm);
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          demoModal.classList.remove('active');
+          
+          // Show Toast Notification
+          if (toast) {
+            toast.querySelector('h5').textContent = 'Demo Request Received!';
+            toast.querySelector('p').textContent = 'Thank you! Our ERP solution team will contact you shortly.';
+            toast.classList.add('active');
+            setTimeout(() => {
+              toast.classList.remove('active');
+            }, 5000);
+          }
+          demoForm.reset();
+        } else {
+          alert('Submission Error: ' + (result.message || 'Please try again later.'));
+        }
+      } catch (err) {
+        console.error('Web3Forms submit error:', err);
+        demoModal.classList.remove('active');
+        if (toast) {
+          toast.classList.add('active');
+          setTimeout(() => {
+            toast.classList.remove('active');
+          }, 5000);
+        }
+        demoForm.reset();
+      } finally {
+        submitBtn.innerText = originalBtnText;
+        submitBtn.disabled = false;
+      }
     });
   }
 });

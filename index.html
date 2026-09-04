@@ -654,47 +654,54 @@
       <p class="modal-subtitle">Our ERP experts will customize a live walkthrough for your specific plant requirements.
       </p>
 
-      <form id="demoForm">
+      <form id="demoForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="814650f3-74c2-44f7-a370-f0c06a5ff019">
+        <input type="hidden" name="subject" value="New ERPrath Live Demo Request">
+        <input type="hidden" name="from_name" value="ERPrath Website">
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
         <div class="form-grid">
           <div class="form-group">
             <label for="fullName">Full Name *</label>
-            <input type="text" id="fullName" class="form-control" placeholder="e.g. Rajesh Kumar" required>
+            <input type="text" id="fullName" name="name" class="form-control" placeholder="e.g. Rajesh Kumar" required>
           </div>
 
           <div class="form-group">
             <label for="companyName">Company / Plant Name *</label>
-            <input type="text" id="companyName" class="form-control" placeholder="e.g. Acme Auto Components" required>
+            <input type="text" id="companyName" name="company" class="form-control"
+              placeholder="e.g. Acme Auto Components" required>
           </div>
 
           <div class="form-group">
             <label for="workEmail">Work Email *</label>
-            <input type="email" id="workEmail" class="form-control" placeholder="rajesh@acmeauto.com" required>
+            <input type="email" id="workEmail" name="email" class="form-control" placeholder="rajesh@acmeauto.com"
+              required>
           </div>
 
           <div class="form-group">
             <label for="phoneNum">Phone Number *</label>
-            <input type="tel" id="phoneNum" class="form-control" placeholder="+91 98765 43210" required>
+            <input type="tel" id="phoneNum" name="phone" class="form-control" placeholder="+91 98765 43210" required>
           </div>
 
           <div class="form-group">
             <label for="industryType">Industry Type</label>
-            <select id="industryType" class="form-control">
-              <option value="auto">Auto Components & Machining</option>
-              <option value="chemical">Chemical & Pharma</option>
-              <option value="plastics">Plastics & Packaging</option>
-              <option value="metal">Metal Fabrication</option>
-              <option value="electronics">Electronics</option>
-              <option value="other">Trading / Other</option>
+            <select id="industryType" name="industry" class="form-control">
+              <option value="Auto Components & Machining">Auto Components & Machining</option>
+              <option value="Chemical & Pharma">Chemical & Pharma</option>
+              <option value="Plastics & Packaging">Plastics & Packaging</option>
+              <option value="Metal Fabrication">Metal Fabrication</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Trading / Other">Trading / Other</option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="plantEmployees">Plant Size / Team</label>
-            <select id="plantEmployees" class="form-control">
-              <option value="1-20">1 - 20 Employees</option>
-              <option value="20-50">20 - 50 Employees</option>
-              <option value="50-200">50 - 200 Employees</option>
-              <option value="200+">200+ Employees</option>
+            <select id="plantEmployees" name="plant_size" class="form-control">
+              <option value="1-20 Employees">1 - 20 Employees</option>
+              <option value="20-50 Employees">20 - 50 Employees</option>
+              <option value="50-200 Employees">50 - 200 Employees</option>
+              <option value="200+ Employees">200+ Employees</option>
             </select>
           </div>
         </div>
