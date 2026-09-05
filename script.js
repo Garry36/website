@@ -27,6 +27,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 2b. FAQ Accordion Toggle
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  faqQuestions.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const faqItem = btn.parentElement;
+      const isActive = faqItem.classList.contains('active');
+      
+      // Close other items
+      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+      
+      if (!isActive) {
+        faqItem.classList.add('active');
+      }
+    });
+  });
+
   // 3. Dashboard Interactive Tabs
   const dashTabs = document.querySelectorAll('.dash-tab');
   const kpiOee = document.getElementById('kpiOee');
