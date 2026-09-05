@@ -1146,11 +1146,39 @@ select.form-control option {
   padding: 0 1.5rem 1.25rem 1.5rem;
 }
 
+/* SEO Knowledge Guide Section */
+.seo-knowledge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.seo-knowledge-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+}
+
+.seo-knowledge-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.seo-knowledge-card p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
 /* Enhanced Responsive Media Queries for Mobile & Tablets */
 @media (max-width: 1024px) {
   .hero-title { font-size: clamp(2.2rem, 4.5vw, 3.2rem); }
   .modules-grid { grid-template-columns: repeat(2, 1fr); }
   .industries-grid { grid-template-columns: repeat(2, 1fr); }
+  .seo-knowledge-grid { grid-template-columns: 1fr; }
   .roi-box { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
   .dash-grid { grid-template-columns: repeat(2, 1fr); }
