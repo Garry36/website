@@ -10,24 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 2. Mobile Menu Toggle
+  // 2. Mobile Menu Toggle & Auto-Close
   const mobileToggle = document.getElementById('mobileToggle');
   const navMenu = document.getElementById('navMenu');
   if (mobileToggle && navMenu) {
     mobileToggle.addEventListener('click', () => {
-      if (navMenu.style.display === 'flex') {
-        navMenu.style.display = 'none';
-      } else {
-        navMenu.style.display = 'flex';
-        navMenu.style.flexDirection = 'column';
-        navMenu.style.position = 'absolute';
-        navMenu.style.top = '100%';
-        navMenu.style.left = '0';
-        navMenu.style.width = '100%';
-        navMenu.style.background = '#0f172a';
-        navMenu.style.padding = '1.5rem';
-        navMenu.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
-      }
+      navMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking nav links
+    const navLinks = navMenu.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+      });
     });
   }
 
