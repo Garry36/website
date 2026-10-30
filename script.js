@@ -50,11 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // Smooth scroll offset-aware (account for fixed navbar)
       link.addEventListener('click', (e) => {
         const targetId = link.getAttribute('href');
-        const targetEl = document.querySelector(targetId);
-        if (targetEl) {
-          e.preventDefault();
-          const offset = window.innerWidth < 1025 ? 70 : 90;
-          window.scrollTo({ top: targetEl.offsetTop - offset, behavior: 'smooth' });
+        if (targetId && targetId.startsWith('#')) {
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            const offset = window.innerWidth < 1025 ? 70 : 90;
+            window.scrollTo({ top: targetEl.offsetTop - offset, behavior: 'smooth' });
+          }
         }
       });
     });
@@ -70,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 2a. Scroll-spy: highlight the nav link of the section in view
-  const spySections = ['overview', 'modules', 'industries', 'catalogue', 'calculator', 'compare', 'faq'];
+  const spySections = ['overview', 'modules', 'industries', 'configurator', 'catalogue', 'calculator', 'compare', 'faq'];
   const spyLinks = new Map();
   spySections.forEach(id => {
     const link = document.querySelector('.nav-link[href="#' + id + '"]');
@@ -532,5 +534,143 @@ document.addEventListener('DOMContentLoaded', () => {
         node.textContent = `${val}ms`;
       });
     }, 2800);
+  }
+
+  // 13. Apple Store "Buy iPhone" Inspired Interactive Configurator & Sticky Summary Bar
+  const configSection = document.getElementById('configurator');
+  const stickyBar = document.getElementById('appleStickyBar');
+
+  if (configSection && stickyBar) {
+    const modelCards = configSection.querySelectorAll('.apple-model-cards .apple-select-card');
+    const swatches = configSection.querySelectorAll('.apple-swatches-row .apple-swatch-item');
+    const capCards = configSection.querySelectorAll('.apple-capacity-grid .apple-cap-card');
+    const tradeinCards = configSection.querySelectorAll('.apple-tradein-options .apple-tradein-card');
+
+    const previewBadge = document.getElementById('previewEditionBadge');
+    const previewTitle = document.getElementById('previewDeviceTitle');
+    const previewDesc = document.getElementById('previewDeviceDesc');
+    const previewOee = document.getElementById('previewOee');
+    const previewStockout = document.getElementById('previewStockout');
+    const previewIndustryFeature = document.getElementById('previewIndustryFeature');
+    const finishLabel = document.getElementById('appleFinishLabel');
+
+    const livePriceDisplay = document.getElementById('appleLivePriceDisplay');
+    const liveRoiDisplay = document.getElementById('appleLiveRoiDisplay');
+    const stickySummaryText = document.getElementById('appleStickySummaryText');
+    const stickyPrice = document.getElementById('appleStickyPrice');
+    const stickySavings = document.getElementById('appleStickySavings');
+
+    let state = {
+      model: 'core',
+      modelName: 'ERPrath Industrial Core',
+      basePrice: 45000,
+      baseRoi: 1.42,
+      vertical: 'auto',
+      verticalName: 'Auto Components',
+      verticalFeature: 'VDA 4905 EDI & Subcontracting Ready',
+      scale: '1',
+      scaleLabel: '1 Plant',
+      scaleMult: 1.0,
+      migration: 'yes'
+    };
+
+    function updateAppleConfigurator() {
+      // Calculate dynamic price & ROI
+      const totalMonthly = Math.round(state.basePrice * state.scaleMult - (state.migration === 'yes' ? 4000 : 0));
+      const totalRoiCr = (state.baseRoi * state.scaleMult).toFixed(2);
+
+      // Format currency
+      const formattedPrice = `₹${totalMonthly.toLocaleString('en-IN')}/mo.`;
+      const formattedRoi = `₹${totalRoiCr} Cr`;
+
+      if (livePriceDisplay) livePriceDisplay.textContent = formattedPrice;
+      if (liveRoiDisplay) liveRoiDisplay.textContent = formattedRoi;
+
+      if (stickyPrice) stickyPrice.textContent = formattedPrice;
+      if (stickySavings) stickySavings.textContent = `Est. ${formattedRoi}/yr ROI`;
+      if (stickySummaryText) {
+        stickySummaryText.textContent = `${state.modelName} · ${state.verticalName} · ${state.scaleLabel}`;
+      }
+
+      // Update sticky preview frame
+      if (previewBadge) previewBadge.textContent = state.modelName;
+      if (previewTitle) {
+        previewTitle.textContent = state.model === 'core' 
+          ? 'Single-Facility Production Core' 
+          : 'Multi-Plant Autonomous Cloud Mesh';
+      }
+      if (previewDesc) {
+        previewDesc.textContent = state.model === 'core'
+          ? 'Configured for precision discrete manufacturing with shop-floor MRP, live inventory valuation, and automated GST compliance.'
+          : 'Configured for multi-site industrial groups with real-time PLC/CNC spindle telemetry, VDA EDI, and global consolidation.';
+      }
+      if (previewOee) previewOee.textContent = state.model === 'core' ? '+28.5%' : '+38.4%';
+      if (previewStockout) previewStockout.textContent = state.model === 'core' ? '-65%' : '-82%';
+      if (previewIndustryFeature) previewIndustryFeature.textContent = state.verticalFeature;
+      if (finishLabel) finishLabel.textContent = state.verticalName;
+    }
+
+    // Step 1: Model Selection
+    modelCards.forEach(card => {
+      card.addEventListener('click', () => {
+        modelCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        state.model = card.dataset.model;
+        state.modelName = card.dataset.model === 'core' ? 'ERPrath Industrial Core' : 'ERPrath Enterprise Mesh';
+        state.basePrice = parseFloat(card.dataset.basePrice);
+        state.baseRoi = parseFloat(card.dataset.baseRoi);
+        updateAppleConfigurator();
+      });
+    });
+
+    // Step 2: Swatch Selection
+    swatches.forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        swatches.forEach(s => s.classList.remove('selected'));
+        swatch.classList.add('selected');
+        state.vertical = swatch.dataset.vertical;
+        state.verticalName = swatch.dataset.name;
+        state.verticalFeature = swatch.dataset.feature;
+        updateAppleConfigurator();
+      });
+    });
+
+    // Step 3: Capacity Selection
+    capCards.forEach(card => {
+      card.addEventListener('click', () => {
+        capCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        state.scale = card.dataset.scale;
+        state.scaleLabel = card.dataset.label;
+        state.scaleMult = parseFloat(card.dataset.scaleMult);
+        updateAppleConfigurator();
+      });
+    });
+
+    // Step 4: Trade-In Selection
+    tradeinCards.forEach(card => {
+      card.addEventListener('click', () => {
+        tradeinCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        state.migration = card.dataset.migration;
+        updateAppleConfigurator();
+      });
+    });
+
+    // Sticky Summary Bar Scroll Reveal (Apple Buy iPhone pattern)
+    const toggleStickyBar = () => {
+      const scrollPos = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      
+      // Reveal sticky bar once user scrolls past 350px
+      if (scrollPos > 350 && scrollPos < docHeight - 250) {
+        stickyBar.classList.add('active');
+      } else {
+        stickyBar.classList.remove('active');
+      }
+    };
+
+    window.addEventListener('scroll', toggleStickyBar, { passive: true });
+    updateAppleConfigurator();
   }
 });

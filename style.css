@@ -277,9 +277,10 @@ button {
 .brand-logo-img {
   height: 36px;
   width: auto;
-  max-width: 250px;
+  max-width: 280px;
   object-fit: contain;
   display: block;
+  image-rendering: -webkit-optimize-contrast;
   transition: transform 0.2s ease;
 }
 
@@ -461,8 +462,9 @@ section[id] {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
-.hero-pill .pill-icon {
-  font-size: 0.9rem;
+.hero-pill svg {
+  color: var(--primary);
+  flex-shrink: 0;
 }
 
 /* Dashboard Mockup — floating high-tech card */
@@ -2403,8 +2405,9 @@ textarea.form-control {
   white-space: nowrap;
 }
 
-.cred-icon {
-  font-size: 0.85rem;
+.cred-item svg {
+  color: var(--primary);
+  flex-shrink: 0;
 }
 
 .cred-strip .container {
@@ -2848,5 +2851,560 @@ textarea.form-control {
 
   .footer-global-line {
     justify-content: center;
+  }
+}
+
+/* ============================================================
+   Apple Store "Buy iPhone" Inspired Configurator & Interactive Flow
+   Directly matching apple.com/in/shop/buy-iphone interaction patterns
+   ============================================================ */
+
+.apple-configurator-section {
+  padding: 6rem 0 5rem 0;
+  background: #ffffff;
+  position: relative;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.apple-config-header {
+  text-align: left;
+  max-width: 850px;
+  margin-bottom: 3.5rem;
+}
+
+.apple-eyebrow {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #b25000;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.apple-main-title {
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--text-main);
+  line-height: 1.08;
+  margin-bottom: 0.85rem;
+}
+
+.apple-price-subhead {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.apple-price-subhead strong {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+/* Configurator Layout: Left Sticky Preview + Right Options Stack */
+.apple-config-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 4.5rem;
+  align-items: start;
+}
+
+/* Left Column: Sticky Interactive Device / Dashboard Showcase */
+.apple-sticky-preview {
+  position: sticky;
+  top: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.apple-device-frame {
+  background: #f5f5f7;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 28px;
+  padding: 2rem;
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.06);
+  transition: all 0.35s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.apple-device-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  background: #ffffff;
+  border-radius: var(--radius-full);
+  color: var(--primary);
+  margin-bottom: 1.25rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.apple-device-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+}
+
+.apple-device-desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.apple-device-kpi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.apple-kpi-tile {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.apple-kpi-tile-label {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+
+.apple-kpi-tile-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+.apple-kpi-tile-sub {
+  font-size: 0.74rem;
+  color: var(--accent-emerald);
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.apple-preview-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0;
+  margin: 0;
+}
+
+.apple-preview-features li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.apple-preview-features li svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+/* Right Column: Progressive Steps (Model, Finish, Capacity, Trade-In) */
+.apple-config-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.apple-step-num {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.35rem;
+}
+
+.apple-step-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.025em;
+  margin-bottom: 1.25rem;
+}
+
+.apple-step-title span.apple-selection-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Step 1: Model Selector (Side-by-Side Cards) */
+.apple-model-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.apple-select-card {
+  background: #ffffff;
+  border: 1px solid #d2d2d7;
+  border-radius: 18px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.24s cubic-bezier(0.25, 0.1, 0.25, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 190px;
+}
+
+.apple-select-card:hover {
+  border-color: #86868b;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.apple-select-card.selected {
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 0 1px var(--primary), 0 8px 24px rgba(0, 113, 227, 0.12);
+  transform: translateY(-2px);
+}
+
+.apple-card-check {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid #d2d2d7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.apple-select-card.selected .apple-card-check {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+.apple-card-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  margin-bottom: 0.35rem;
+}
+
+.apple-card-tagline {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 1.25rem;
+}
+
+.apple-card-price {
+  margin-top: auto;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.apple-card-price strong {
+  font-size: 1.15rem;
+  color: var(--text-main);
+}
+
+/* Step 2: Apple Tactile Finish Swatches */
+.apple-swatches-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.apple-swatch-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.apple-swatch-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: all 0.22s ease;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.apple-swatch-item:hover .apple-swatch-circle {
+  transform: scale(1.08);
+}
+
+.apple-swatch-item.selected .apple-swatch-circle {
+  outline: 2px solid var(--primary);
+  outline-offset: 3.5px;
+  transform: scale(1.12);
+}
+
+.apple-swatch-name {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.apple-swatch-item.selected .apple-swatch-name {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* Swatch gradient textures */
+.swatch-auto { background: linear-gradient(135deg, #1d4052 0%, #0c2b3a 100%); }
+.swatch-pharma { background: linear-gradient(135deg, #10b981 0%, #065f46 100%); }
+.swatch-elec { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
+.swatch-metal { background: linear-gradient(135deg, #64748b 0%, #334155 100%); }
+.swatch-plastic { background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%); }
+
+/* Step 3: Capacity / Scale Cards (Grid of 4) */
+.apple-capacity-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.apple-cap-card {
+  background: #ffffff;
+  border: 1px solid #d2d2d7;
+  border-radius: 16px;
+  padding: 1.25rem 1.4rem;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.25, 0.1, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 120px;
+}
+
+.apple-cap-card:hover {
+  border-color: #86868b;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.apple-cap-card.selected {
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 0 1px var(--primary), 0 6px 20px rgba(0, 113, 227, 0.12);
+  transform: translateY(-2px);
+}
+
+.apple-cap-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  margin-bottom: 0.2rem;
+}
+
+.apple-cap-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.apple-cap-price {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-top: 0.75rem;
+}
+
+/* Step 4: Trade-In / Migration Selectors */
+.apple-tradein-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.apple-tradein-card {
+  background: #ffffff;
+  border: 1px solid #d2d2d7;
+  border-radius: 16px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  position: relative;
+}
+
+.apple-tradein-card:hover {
+  border-color: #86868b;
+}
+
+.apple-tradein-card.selected {
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 0 1px var(--primary), 0 6px 18px rgba(0, 113, 227, 0.1);
+}
+
+.apple-tradein-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.35rem;
+}
+
+.apple-radio-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #d2d2d7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.apple-tradein-card.selected .apple-radio-circle {
+  border-color: var(--primary);
+}
+
+.apple-tradein-card.selected .apple-radio-circle::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.apple-tradein-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  padding-left: 1.8rem;
+}
+
+/* Step 5: Iconic Apple Sticky Floating Summary Bar */
+.apple-sticky-summary-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1050;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(0, 0, 0, 0.09);
+  padding: 0.85rem 0;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.08);
+  transform: translateY(120%);
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-sticky-summary-bar.active {
+  transform: translateY(0);
+}
+
+.apple-sticky-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.apple-sticky-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.apple-sticky-tagline {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.apple-sticky-selection {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.015em;
+}
+
+.apple-sticky-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  text-align: right;
+}
+
+.apple-sticky-price-big {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+.apple-sticky-savings-badge {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-emerald);
+  background: rgba(6, 127, 55, 0.08);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+}
+
+.apple-sticky-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+/* Responsiveness for Configurator */
+@media (max-width: 1024px) {
+  .apple-config-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .apple-sticky-preview {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .apple-model-cards,
+  .apple-capacity-grid,
+  .apple-tradein-options {
+    grid-template-columns: 1fr;
+  }
+
+  .apple-sticky-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+  }
+
+  .apple-sticky-pricing {
+    justify-content: space-between;
   }
 }
