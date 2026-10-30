@@ -21,24 +21,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { passive: true });
 
-  // 2. Mobile Menu Toggle & Auto-Close
-  const mobileToggle = document.getElementById('mobileToggle');
+  // 2. Mobile Menu Toggle & Auto-Close (Supports #mobileToggle, #burgerMenu)
+  const mobileToggle = document.getElementById('mobileToggle') || document.getElementById('burgerMenu') || document.querySelector('.mobile-toggle, .burger-menu');
   const navMenu = document.getElementById('navMenu');
   if (mobileToggle && navMenu) {
+    const hasSpans = mobileToggle.querySelector('span') !== null;
     mobileToggle.addEventListener('click', () => {
       const isOpen = navMenu.classList.toggle('active');
       mobileToggle.setAttribute('aria-expanded', String(isOpen));
       mobileToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-      mobileToggle.textContent = isOpen ? '✕' : '☰';
+      if (!hasSpans) {
+        mobileToggle.textContent = isOpen ? '✕' : '☰';
+      }
     });
 
     // Close menu when clicking nav links
-    const navLinks = navMenu.querySelectorAll('.nav-link');
+    const navLinks = navMenu.querySelectorAll('.nav-link, a');
     const closeMenu = () => {
       navMenu.classList.remove('active');
       mobileToggle.setAttribute('aria-expanded', 'false');
       mobileToggle.setAttribute('aria-label', 'Open menu');
-      mobileToggle.textContent = '☰';
+      if (!hasSpans) {
+        mobileToggle.textContent = '☰';
+      }
     };
     mobileToggle._closeMenu = closeMenu;
 
@@ -61,11 +66,17 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Close menu when tapping outside of it
+    // Close menu when tapping outside of it or pressing Escape
     document.addEventListener('click', (e) => {
       if (navMenu.classList.contains('active') &&
           !navMenu.contains(e.target) &&
           !mobileToggle.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navMenu.classList.contains('active')) {
         closeMenu();
       }
     });
@@ -494,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
     applyCatalogueFilter('all', false);
   }
 
-  // 11. Live Global Region Clocks (Stuttgart, Bengaluru, Dubai, Singapore)
+  // 11. Live Global Region Clocks (Stuttgart, Bangalore, Dubai, Singapore)
   const regionCards = document.querySelectorAll('.region-card[data-tz]');
   if (regionCards.length) {
     const updateRegionClocks = () => {

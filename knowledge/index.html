@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Manufacturing Knowledge Centre | 35 Guides &amp; ERP Articles &mdash; ERPrath</title>
+  <meta name="description" content="Explore the ERPrath Knowledge Centre: 35 comprehensive manufacturing guides, operational frameworks, formulas, and ERP integration references for discrete and process plants.">
+  <meta name="keywords" content="Manufacturing Knowledge, Manufacturing ERP, Production Planning, Inventory Control, OEE, 5S, Industrial Engineering">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://www.erprath.com/knowledge/">
+
+  <!-- Google Search & High-DPI Favicons (48x48 multiple for Googlebot) -->
+  <link rel="icon" href="../favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ERPrath Knowledge Centre">
+  <meta property="og:title" content="Manufacturing Knowledge Centre &mdash; ERPrath">
+  <meta property="og:description" content="35 comprehensive manufacturing guides, formulas, and ERP architecture benchmarks for industrial leaders.">
+  <meta property="og:url" content="https://www.erprath.com/knowledge/">
+  <meta property="og:image" content="https://www.erprath.com/og-image.jpg">
+
+  <style>
+    .kc-hero {
+      padding: 7.5rem 0 3.5rem;
+      background: linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%);
+      border-bottom: 1px solid var(--border-light);
+      text-align: center;
+    }
+    .kc-hero-content {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .kc-hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-main);
+      line-height: 1.18;
+      margin-bottom: 1.25rem;
+    }
+    .kc-hero p {
+      font-size: 1.15rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .kc-search-wrap {
+      max-width: 620px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+    }
+    .kc-search-input {
+      width: 100%;
+      padding: 1.1rem 1.5rem 1.1rem 3.2rem;
+      font-size: 1.05rem;
+      font-family: inherit;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-pill, 9999px);
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 113, 227, 0.08);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .kc-search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 6px 28px rgba(0, 113, 227, 0.16);
+    }
+    .kc-search-icon {
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      pointer-events: none;
+    }
+    .kc-cat-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .kc-cat-pill {
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .kc-cat-pill:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #f0f7ff;
+    }
+    .featured-guides-section {
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid var(--border-light);
+      background: #ffffff;
+    }
+    .featured-guides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .featured-guide-card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.85rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      transition: all 0.25s ease;
+    }
+    .featured-guide-card:hover {
+      border-color: rgba(0, 113, 227, 0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(0, 113, 227, 0.09);
+    }
+    .featured-card-top {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .featured-num {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.5rem;
+      background: rgba(0, 113, 227, 0.08);
+      color: var(--primary);
+      border-radius: 4px;
+    }
+    .featured-tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .featured-read {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+    .featured-title {
+      font-size: 1.22rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 0 0 0.85rem;
+      letter-spacing: -0.015em;
+    }
+    .featured-title a {
+      color: var(--text-main);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .featured-title a:hover {
+      color: var(--primary);
+    }
+    .featured-desc {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0 0 1.5rem;
+      flex: 1;
+    }
+    .featured-footer {
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-light);
+    }
+    .read-article-link {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: gap 0.2s ease;
+    }
+    .read-article-link:hover {
+      gap: 0.6rem;
+    }
+    .kc-body-section {
+      padding: 4.5rem 0 6rem;
+      background: var(--bg-card);
+    }
+    .kc-category-section {
+      margin-bottom: 4.5rem;
+      scroll-margin-top: 90px;
+    }
+    .kc-cat-header {
+      margin-bottom: 2rem;
+    }
+    .kc-cat-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin: 0 0 0.5rem;
+    }
+    .kc-cat-desc {
+      font-size: 1.02rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .kc-articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 1.5rem;
+    }
+    .kc-article-card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      transition: all 0.25s ease;
+    }
+    .kc-article-card:hover {
+      border-color: rgba(0, 113, 227, 0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0, 113, 227, 0.08);
+    }
+    .kc-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      font-size: 0.78rem;
+    }
+    .kc-badge {
+      background: rgba(0, 113, 227, 0.08);
+      color: var(--primary);
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+    .kc-read-time {
+      color: var(--text-muted);
+    }
+    .kc-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0 0 0.75rem;
+    }
+    .kc-card-title a {
+      color: var(--text-main);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .kc-card-title a:hover {
+      color: var(--primary);
+    }
+    .kc-card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin: 0 0 1.25rem;
+      flex: 1;
+    }
+    .kc-card-footer {
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border-light);
+    }
+    .kc-card-link {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: gap 0.2s ease;
+    }
+    .kc-card-link:hover {
+      gap: 0.5rem;
+    }
+    .compendium-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2.5rem;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+    }
+    .comp-text {
+      max-width: 600px;
+    }
+    .comp-text h3 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+    .comp-text p {
+      color: #94a3b8;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Global Navigation Header -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="../index.html" class="brand-logo" aria-label="ERPrath Home">
+        <img src="../logo-horizontal.png" alt="ERPrath" class="brand-logo-img" width="188" height="32" loading="eager" decoding="async">
+      </a>
+
+      <nav class="nav-menu" id="navMenu" aria-label="Main navigation">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../modules.html" class="nav-link">Modules</a>
+        <a href="../solutions.html" class="nav-link">Other Solutions</a>
+        <a href="../industries.html" class="nav-link">Industries</a>
+        <a href="../index.html#configurator" class="nav-link">Configure</a>
+        <a href="../roi.html" class="nav-link">ROI</a>
+        <a href="../compare.html" class="nav-link">Compare</a>
+        <a href="../articles.html" class="nav-link active">Articles</a>
+        <a href="../faq.html" class="nav-link">FAQ</a>
+        <a href="../contact.html" class="nav-phone-btn" style="display:inline-flex; align-items:center; gap:0.4rem; font-weight:700; color:var(--primary); text-decoration:none;">Schedule Briefing</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="../contact.html" class="btn btn-primary nav-cta">Book a Demo &rarr;</a>
+        <button class="burger-menu" id="burgerMenu" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="kc-hero">
+      <div class="container">
+        <div class="kc-hero-content">
+          <div class="badge badge-tech" style="margin-bottom: 1rem;">
+            <span class="pulse-beacon sm"></span>
+            Engineering &amp; Operations Reference
+          </div>
+          <h1>ERPrath Manufacturing <span class="gradient-text">Knowledge Centre</span></h1>
+          <p>35 authoritative guides, operational frameworks, and mathematical formulas covering shop-floor planning, inventory control, quality gates, and ERP architecture.</p>
+<div class="kc-cat-nav">
+            <a href="#featured" class="kc-cat-pill">Featured Guides (5)</a>
+            <a href="#manufacturing" class="kc-cat-pill">Fundamentals</a>
+            <a href="#production-planning" class="kc-cat-pill">Production Planning</a>
+            <a href="#inventory-management" class="kc-cat-pill">Inventory &amp; Stores</a>
+            <a href="#quality-management" class="kc-cat-pill">Quality &amp; OEE</a>
+            <a href="#industrial-engineering" class="kc-cat-pill">Industrial Engineering</a>
+            <a href="#manufacturing-costing" class="kc-cat-pill">Costing &amp; ERP</a>
+            <a href="#industry-guides" class="kc-cat-pill">Industry Guides</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 In-Depth Guides Section -->
+    <section class="featured-guides-section" id="featured">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: 1rem;">
+          <div class="badge badge-emerald" style="margin-bottom: 0.5rem;">Core Editorial Series</div>
+          <h2 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.025em; color: var(--text-main);">In-Depth Architectural Guides</h2>
+          <p style="color: var(--text-muted); font-size: 1.05rem;">Comprehensive blueprints for plant owners, operations heads, and ERP evaluation committees.</p>
+        </div>
+
+        <div class="featured-guides-grid">
+        <div class="featured-guide-card">
+          <div class="featured-card-top">
+            <span class="featured-num">Guide 01</span>
+            <span class="featured-tag">ERP Architecture</span>
+            <span class="featured-read">6 min read</span>
+          </div>
+          <h3 class="featured-title"><a href="what-is-erp-software.html">What Is ERP Software? A Complete Guide for Manufacturing Businesses</a></h3>
+          <p class="featured-desc">How centralized ERP connects procurement, shop-floor planning, inventory, quality, and accounting into one real-time data model.</p>
+          <div class="featured-footer">
+            <a href="what-is-erp-software.html" class="read-article-link">Read Complete Architectural Guide &rarr;</a>
+          </div>
+        </div>
+        <div class="featured-guide-card">
+          <div class="featured-card-top">
+            <span class="featured-num">Guide 02</span>
+            <span class="featured-tag">Manufacturing Execution</span>
+            <span class="featured-read">7 min read</span>
+          </div>
+          <h3 class="featured-title"><a href="manufacturing-erp-software.html">What Is Manufacturing ERP? Features, Benefits and Applications</a></h3>
+          <p class="featured-desc">Beyond basic accounting: deep dive into multi-level BOMs, material requirements planning (MRP), work orders, and shop-floor tracking.</p>
+          <div class="featured-footer">
+            <a href="manufacturing-erp-software.html" class="read-article-link">Read Complete Architectural Guide &rarr;</a>
+          </div>
+        </div>
+        <div class="featured-guide-card">
+          <div class="featured-card-top">
+            <span class="featured-num">Guide 03</span>
+            <span class="featured-tag">MSME Scale</span>
+            <span class="featured-read">5 min read</span>
+          </div>
+          <h3 class="featured-title"><a href="erp-for-msme-manufacturing.html">How ERP Software Helps Small and Medium Manufacturing Businesses</a></h3>
+          <p class="featured-desc">Moving from paper registers and spreadsheets to unified ERP: eliminate material shortages and gain real-time job-work cost control.</p>
+          <div class="featured-footer">
+            <a href="erp-for-msme-manufacturing.html" class="read-article-link">Read Complete Architectural Guide &rarr;</a>
+          </div>
+        </div>
+        <div class="featured-guide-card">
+          <div class="featured-card-top">
+            <span class="featured-num">Guide 04</span>
+            <span class="featured-tag">Strategy & Migration</span>
+            <span class="featured-read">6 min read</span>
+          </div>
+          <h3 class="featured-title"><a href="erp-vs-excel-manufacturing.html">ERP vs Excel – When Should a Manufacturing Business Switch to ERP?</a></h3>
+          <p class="featured-desc">Excel is an extraordinary calculator, but a risky transaction database. Critical differences and exact tipping points to switch.</p>
+          <div class="featured-footer">
+            <a href="erp-vs-excel-manufacturing.html" class="read-article-link">Read Complete Architectural Guide &rarr;</a>
+          </div>
+        </div>
+        <div class="featured-guide-card">
+          <div class="featured-card-top">
+            <span class="featured-num">Guide 05</span>
+            <span class="featured-tag">Shop-Floor PPC</span>
+            <span class="featured-read">7 min read</span>
+          </div>
+          <h3 class="featured-title"><a href="production-planning-and-control.html">What Is Production Planning and Control (PPC)?</a></h3>
+          <p class="featured-desc">The 7 operational stages of PPC: Demand forecasting, BOM explosion, capacity validation, work-order release, and plan-vs-actual variance.</p>
+          <div class="featured-footer">
+            <a href="production-planning-and-control.html" class="read-article-link">Read Complete Architectural Guide &rarr;</a>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 30 Knowledge Articles by Category -->
+    <section class="kc-body-section">
+      <div class="container">
+
+        <!-- Banner for 200 Core Principles -->
+        <div class="compendium-banner">
+          <div class="comp-text">
+            <span class="badge badge-tech" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; margin-bottom: 0.5rem;">200 Principles Reference</span>
+            <h3>Looking for the 200 Core Manufacturing Principles?</h3>
+            <p>Explore our complete glossary detailing RCCP, Finite Scheduling, Configurable BOMs, Kanban, Zero-Trust Execution, and Takt Time formulas on one interactive page.</p>
+          </div>
+          <a href="../articles.html" class="btn btn-primary" style="white-space: nowrap;">Explore 200 Principles &rarr;</a>
+        </div>
+
+      <section class="kc-category-section" id="manufacturing">
+        <div class="kc-cat-header">
+          <div class="badge badge-tech" style="margin-bottom: 0.5rem;">Manufacturing Fundamentals</div>
+          <h3 class="kc-cat-title">Manufacturing Fundamentals</h3>
+          <p class="kc-cat-desc">Core types, operational definitions, automation principles, and supply chain fundamentals.</p>
+        </div>
+        <div class="kc-articles-grid">
+          <div class="kc-article-card" data-title="what is manufacturing? types, processes and examples" data-desc="understand manufacturing types: discrete, process, batch, job shop, and continuous. discover key production methods, industrial examples, and modern erp control.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 01</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="manufacturing/what-is-manufacturing.html">What Is Manufacturing? Types, Processes and Examples</a></h4>
+            <p class="kc-card-desc">Understand manufacturing types: discrete, process, batch, job shop, and continuous. Discover key production methods, industrial examples, and modern ERP control.</p>
+            <div class="kc-card-footer">
+              <a href="manufacturing/what-is-manufacturing.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is production management? functions, scope and plant control" data-desc="discover the 7 core functions of production management in manufacturing: planning, routing, machine allocation, quality control, and planned vs actual monitoring.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 02</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="manufacturing/what-is-production-management.html">What Is Production Management? Functions, Scope and Plant Control</a></h4>
+            <p class="kc-card-desc">Discover the 7 core functions of production management in manufacturing: planning, routing, machine allocation, quality control, and planned vs actual monitoring.</p>
+            <div class="kc-card-footer">
+              <a href="manufacturing/what-is-production-management.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is lean manufacturing? core principles and waste elimination" data-desc="master lean manufacturing principles: customer value, value stream mapping, continuous workflow, and eliminating the 7 deadly manufacturing wastes (timwood).">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 03</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="manufacturing/what-is-lean-manufacturing.html">What Is Lean Manufacturing? Core Principles and Waste Elimination</a></h4>
+            <p class="kc-card-desc">Master lean manufacturing principles: customer value, value stream mapping, continuous workflow, and eliminating the 7 deadly manufacturing wastes (TIMWOOD).</p>
+            <div class="kc-card-footer">
+              <a href="manufacturing/what-is-lean-manufacturing.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is industrial automation? technologies, benefits and erp integration" data-desc="learn how industrial automation with plcs, scada, cncs, and robotics optimizes factory throughput, and how automated machine data streams directly into erp.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 04</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="manufacturing/what-is-industrial-automation.html">What Is Industrial Automation? Technologies, Benefits and ERP Integration</a></h4>
+            <p class="kc-card-desc">Learn how industrial automation with PLCs, SCADA, CNCs, and robotics optimizes factory throughput, and how automated machine data streams directly into ERP.</p>
+            <div class="kc-card-footer">
+              <a href="manufacturing/what-is-industrial-automation.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is supply chain management (scm) in manufacturing?" data-desc="understand supply chain management in manufacturing: vendor evaluation, purchase scheduling, inventory coordination, and synchronized factory logistics.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 05</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="manufacturing/what-is-supply-chain-management.html">What Is Supply Chain Management (SCM) in Manufacturing?</a></h4>
+            <p class="kc-card-desc">Understand supply chain management in manufacturing: vendor evaluation, purchase scheduling, inventory coordination, and synchronized factory logistics.</p>
+            <div class="kc-card-footer">
+              <a href="manufacturing/what-is-supply-chain-management.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="kc-category-section" id="production-planning">
+        <div class="kc-cat-header">
+          <div class="badge badge-tech" style="margin-bottom: 0.5rem;">Production Planning & Factory Operations</div>
+          <h3 class="kc-cat-title">Production Planning & Factory Operations</h3>
+          <p class="kc-cat-desc">Demand forecasting, capacity calculation, shop-floor scheduling, work orders, and plant productivity.</p>
+        </div>
+        <div class="kc-articles-grid">
+          <div class="kc-article-card" data-title="what is production planning? inputs, capacity and execution strategy" data-desc="understand production planning in manufacturing: key inputs, customer demand, capacity constraints, bom explosion, and benefits of automated erp planning.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 06</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="production-planning/what-is-production-planning.html">What Is Production Planning? Inputs, Capacity and Execution Strategy</a></h4>
+            <p class="kc-card-desc">Understand production planning in manufacturing: key inputs, customer demand, capacity constraints, BOM explosion, and benefits of automated ERP planning.</p>
+            <div class="kc-card-footer">
+              <a href="production-planning/what-is-production-planning.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is production scheduling? factors, sequencing and dispatch control" data-desc="learn the critical differences between production planning and scheduling, essential sequencing factors, setup optimization, and digital shop-floor dispatching.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 07</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="production-planning/what-is-production-scheduling.html">What Is Production Scheduling? Factors, Sequencing and Dispatch Control</a></h4>
+            <p class="kc-card-desc">Learn the critical differences between production planning and scheduling, essential sequencing factors, setup optimization, and digital shop-floor dispatching.</p>
+            <div class="kc-card-footer">
+              <a href="production-planning/what-is-production-scheduling.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is production capacity? formulas, examples and bottleneck analysis" data-desc="calculate theoretical and realistic production capacity using standard formulas. understand cycle times, bottleneck work centers, and finite capacity scheduling.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 08</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="production-planning/what-is-production-capacity.html">What Is Production Capacity? Formulas, Examples and Bottleneck Analysis</a></h4>
+            <p class="kc-card-desc">Calculate theoretical and realistic production capacity using standard formulas. Understand cycle times, bottleneck work centers, and finite capacity scheduling.</p>
+            <div class="kc-card-footer">
+              <a href="production-planning/what-is-production-capacity.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is a work order in manufacturing? lifecycle, job cards and tracking" data-desc="understand work orders in manufacturing: bom linkages, routing operations, job card travelers, stage-wise material issues, and live progress tracking.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 09</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="production-planning/what-is-work-order-manufacturing.html">What Is a Work Order in Manufacturing? Lifecycle, Job Cards and Tracking</a></h4>
+            <p class="kc-card-desc">Understand work orders in manufacturing: BOM linkages, routing operations, job card travelers, stage-wise material issues, and live progress tracking.</p>
+            <div class="kc-card-footer">
+              <a href="production-planning/what-is-work-order-manufacturing.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is manufacturing productivity? metrics, benchmarks and growth tactics" data-desc="measure and elevate factory productivity. learn key metrics: units per labor hour, machine utilization, scrap ratios, and proven tactics to eliminate throughput drag.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 10</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="production-planning/what-is-manufacturing-productivity.html">What Is Manufacturing Productivity? Metrics, Benchmarks and Growth Tactics</a></h4>
+            <p class="kc-card-desc">Measure and elevate factory productivity. Learn key metrics: units per labor hour, machine utilization, scrap ratios, and proven tactics to eliminate throughput drag.</p>
+            <div class="kc-card-footer">
+              <a href="production-planning/what-is-manufacturing-productivity.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="kc-category-section" id="inventory-management">
+        <div class="kc-cat-header">
+          <div class="badge badge-tech" style="margin-bottom: 0.5rem;">Inventory & Material Management</div>
+          <h3 class="kc-cat-title">Inventory & Material Management</h3>
+          <p class="kc-cat-desc">Raw material control, WIP tracking, FIFO rotation rules, and dynamic reorder levels.</p>
+        </div>
+        <div class="kc-articles-grid">
+          <div class="kc-article-card" data-title="what is inventory control? methods, types and best practices" data-desc="master inventory control in manufacturing: raw materials, wip, finished goods, fifo rotation, abc classification, safety stock, and perpetual cycle counts.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 11</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="inventory-management/what-is-inventory-control.html">What Is Inventory Control? Methods, Types and Best Practices</a></h4>
+            <p class="kc-card-desc">Master inventory control in manufacturing: raw materials, WIP, finished goods, FIFO rotation, ABC classification, safety stock, and perpetual cycle counts.</p>
+            <div class="kc-card-footer">
+              <a href="inventory-management/what-is-inventory-control.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is raw material management? 8 steps for factory control" data-desc="explore raw material management: bom explosion, shortage identification, purchase requisitions, grn inwarding, batch tracking, and work order issuance.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 12</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="inventory-management/what-is-raw-material-management.html">What Is Raw Material Management? 8 Steps for Factory Control</a></h4>
+            <p class="kc-card-desc">Explore raw material management: BOM explosion, shortage identification, purchase requisitions, GRN inwarding, batch tracking, and work order issuance.</p>
+            <div class="kc-card-footer">
+              <a href="inventory-management/what-is-raw-material-management.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is work-in-progress (wip) in manufacturing? control and valuation" data-desc="understand work-in-progress (wip) inventory, why shop-floor tracking matters, how wip uncovers bottlenecks, and its role in accurate cost accounting.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 13</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="inventory-management/what-is-work-in-progress-wip.html">What Is Work-in-Progress (WIP) in Manufacturing? Control and Valuation</a></h4>
+            <p class="kc-card-desc">Understand Work-in-Progress (WIP) inventory, why shop-floor tracking matters, how WIP uncovers bottlenecks, and its role in accurate cost accounting.</p>
+            <div class="kc-card-footer">
+              <a href="inventory-management/what-is-work-in-progress-wip.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is fifo in inventory management? rules, examples and benefits" data-desc="understand first in, first out (fifo) inventory method. practical batch example, preventing material aging, stock rotation, and batch traceability in erp.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 14</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="inventory-management/what-is-fifo-inventory-management.html">What Is FIFO in Inventory Management? Rules, Examples and Benefits</a></h4>
+            <p class="kc-card-desc">Understand First In, First Out (FIFO) inventory method. Practical batch example, preventing material aging, stock rotation, and batch traceability in ERP.</p>
+            <div class="kc-card-footer">
+              <a href="inventory-management/what-is-fifo-inventory-management.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is reorder level? formula, safety stock and calculation example" data-desc="calculate inventory reorder level using standard formulas. learn daily consumption rates, vendor lead time calculation, safety stock buffers, and automated erp alerts.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 15</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="inventory-management/what-is-reorder-level.html">What Is Reorder Level? Formula, Safety Stock and Calculation Example</a></h4>
+            <p class="kc-card-desc">Calculate inventory reorder level using standard formulas. Learn daily consumption rates, vendor lead time calculation, safety stock buffers, and automated ERP alerts.</p>
+            <div class="kc-card-footer">
+              <a href="inventory-management/what-is-reorder-level.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="kc-category-section" id="quality-management">
+        <div class="kc-cat-header">
+          <div class="badge badge-tech" style="margin-bottom: 0.5rem;">Quality Control & Error Proofing</div>
+          <h3 class="kc-cat-title">Quality Control & Error Proofing</h3>
+          <p class="kc-cat-desc">Three-stage inspection gates, OEE calculation, 5S workplace discipline, and Poka-Yoke mistake proofing.</p>
+        </div>
+        <div class="kc-articles-grid">
+          <div class="kc-article-card" data-title="what is quality control in manufacturing? 3 gatekeeper stages" data-desc="discover quality control (qc) in manufacturing: incoming inspection, in-process checking, final quality testing, sampling methods, and defect logging.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 16</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="quality-management/what-is-quality-control-manufacturing.html">What Is Quality Control in Manufacturing? 3 Gatekeeper Stages</a></h4>
+            <p class="kc-card-desc">Discover quality control (QC) in manufacturing: incoming inspection, in-process checking, final quality testing, sampling methods, and defect logging.</p>
+            <div class="kc-card-footer">
+              <a href="quality-management/what-is-quality-control-manufacturing.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is overall equipment effectiveness (oee)? formula &amp; calculation" data-desc="calculate oee in manufacturing. learn the 3 pillars: availability, performance, and quality, with practical factory calculations and six big losses.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 17</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="quality-management/what-is-overall-equipment-effectiveness-oee.html">What Is Overall Equipment Effectiveness (OEE)? Formula &amp; Calculation</a></h4>
+            <p class="kc-card-desc">Calculate OEE in manufacturing. Learn the 3 pillars: Availability, Performance, and Quality, with practical factory calculations and Six Big Losses.</p>
+            <div class="kc-card-footer">
+              <a href="quality-management/what-is-overall-equipment-effectiveness-oee.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is 5s in manufacturing? methodology, audit and cultural discipline" data-desc="implement the 5s workplace methodology (seiri, seiton, seiso, seiketsu, shitsuke) in your factory to reduce search time, improve safety, and enforce discipline.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 18</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="quality-management/what-is-5s-manufacturing.html">What Is 5S in Manufacturing? Methodology, Audit and Cultural Discipline</a></h4>
+            <p class="kc-card-desc">Implement the 5S workplace methodology (Seiri, Seiton, Seiso, Seiketsu, Shitsuke) in your factory to reduce search time, improve safety, and enforce discipline.</p>
+            <div class="kc-card-footer">
+              <a href="quality-management/what-is-5s-manufacturing.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is poka-yoke? mistake-proofing techniques and factory examples" data-desc="prevent manufacturing defects with poka-yoke mistake-proofing. mechanical fixtures, sensor interlocks, assembly jigs, and zero-defect quality control.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 20</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="quality-management/what-is-poka-yoke.html">What Is Poka-Yoke? Mistake-Proofing Techniques and Factory Examples</a></h4>
+            <p class="kc-card-desc">Prevent manufacturing defects with Poka-Yoke mistake-proofing. Mechanical fixtures, sensor interlocks, assembly jigs, and zero-defect quality control.</p>
+            <div class="kc-card-footer">
+              <a href="quality-management/what-is-poka-yoke.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="kc-category-section" id="industrial-engineering">
+        <div class="kc-cat-header">
+          <div class="badge badge-tech" style="margin-bottom: 0.5rem;">Industrial Engineering & Kaizen</div>
+          <h3 class="kc-cat-title">Industrial Engineering & Kaizen</h3>
+          <p class="kc-cat-desc">Continuous micro-improvements, time and motion study, work measurement, and plant layout optimization.</p>
+        </div>
+        <div class="kc-articles-grid">
+          <div class="kc-article-card" data-title="what is kaizen in manufacturing? philosophy of continuous micro-gains" data-desc="learn the kaizen philosophy of continuous micro-improvements in manufacturing. practical examples from setup reduction to motion simplification.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 19</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="industrial-engineering/what-is-kaizen-manufacturing.html">What Is Kaizen in Manufacturing? Philosophy of Continuous Micro-Gains</a></h4>
+            <p class="kc-card-desc">Learn the Kaizen philosophy of continuous micro-improvements in manufacturing. Practical examples from setup reduction to motion simplification.</p>
+            <div class="kc-card-footer">
+              <a href="industrial-engineering/what-is-kaizen-manufacturing.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is industrial engineering? method study, ergonomics and plant optimization" data-desc="apply industrial engineering in manufacturing: time-and-motion studies, work measurement, plant layout optimization, and pairing ie with erp telemetry.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 30</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="industrial-engineering/what-is-industrial-engineering.html">What Is Industrial Engineering? Method Study, Ergonomics and Plant Optimization</a></h4>
+            <p class="kc-card-desc">Apply industrial engineering in manufacturing: time-and-motion studies, work measurement, plant layout optimization, and pairing IE with ERP telemetry.</p>
+            <div class="kc-card-footer">
+              <a href="industrial-engineering/what-is-industrial-engineering.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="kc-category-section" id="manufacturing-costing">
+        <div class="kc-cat-header">
+          <div class="badge badge-tech" style="margin-bottom: 0.5rem;">Manufacturing Costing & ERP Digitalization</div>
+          <h3 class="kc-cat-title">Manufacturing Costing & ERP Digitalization</h3>
+          <p class="kc-cat-desc">Direct material and overhead allocation, scrap reduction, lead-time compression, and digital system integration.</p>
+        </div>
+        <div class="kc-articles-grid">
+          <div class="kc-article-card" data-title="what is manufacturing cost? breakdown, formulas and job-work valuation" data-desc="understand manufacturing cost components: direct material, direct labour, and factory overhead. cost formulas, pricing decisions, and erp job-costing.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 21</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="manufacturing-costing/what-is-manufacturing-cost.html">What Is Manufacturing Cost? Breakdown, Formulas and Job-Work Valuation</a></h4>
+            <p class="kc-card-desc">Understand manufacturing cost components: direct material, direct labour, and factory overhead. Cost formulas, pricing decisions, and ERP job-costing.</p>
+            <div class="kc-card-footer">
+              <a href="manufacturing-costing/what-is-manufacturing-cost.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is material wastage in manufacturing? causes, scrap and reduction" data-desc="identify and reduce material scrap and wastage in factory operations. common causes in cutting, machining, assembly, and standard bom variance analysis.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 22</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="manufacturing-costing/what-is-material-wastage-manufacturing.html">What Is Material Wastage in Manufacturing? Causes, Scrap and Reduction</a></h4>
+            <p class="kc-card-desc">Identify and reduce material scrap and wastage in factory operations. Common causes in cutting, machining, assembly, and standard BOM variance analysis.</p>
+            <div class="kc-card-footer">
+              <a href="manufacturing-costing/what-is-material-wastage-manufacturing.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is manufacturing lead time? stages, bottlenecks and compression" data-desc="calculate and compress manufacturing lead time: procurement, queue, setup, run, inspection, and move times. shorten delivery times with erp scheduling.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 23</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="manufacturing-costing/what-is-manufacturing-lead-time.html">What Is Manufacturing Lead Time? Stages, Bottlenecks and Compression</a></h4>
+            <p class="kc-card-desc">Calculate and compress manufacturing lead time: procurement, queue, setup, run, inspection, and move times. Shorten delivery times with ERP scheduling.</p>
+            <div class="kc-card-footer">
+              <a href="manufacturing-costing/what-is-manufacturing-lead-time.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is erp integration? connecting shop floor, stores and finance" data-desc="learn what erp integration means in manufacturing. connect procurement, stores, work orders, quality inspections, finished goods, and financial ledgers.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 24</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="manufacturing-costing/what-is-erp-integration.html">What Is ERP Integration? Connecting Shop Floor, Stores and Finance</a></h4>
+            <p class="kc-card-desc">Learn what ERP integration means in manufacturing. Connect procurement, stores, work orders, quality inspections, finished goods, and financial ledgers.</p>
+            <div class="kc-card-footer">
+              <a href="manufacturing-costing/what-is-erp-integration.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is manufacturing digitalization? technologies, roadmaps and roi" data-desc="transition from paper registers and spreadsheets to digital manufacturing: erp, mes, iot sensors, machine monitoring, and live production dashboards.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 25</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="manufacturing-costing/what-is-manufacturing-digitalization.html">What Is Manufacturing Digitalization? Technologies, Roadmaps and ROI</a></h4>
+            <p class="kc-card-desc">Transition from paper registers and spreadsheets to digital manufacturing: ERP, MES, IoT sensors, machine monitoring, and live production dashboards.</p>
+            <div class="kc-card-footer">
+              <a href="manufacturing-costing/what-is-manufacturing-digitalization.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="kc-category-section" id="industry-guides">
+        <div class="kc-cat-header">
+          <div class="badge badge-tech" style="margin-bottom: 0.5rem;">Industry-Specific Manufacturing Guides</div>
+          <h3 class="kc-cat-title">Industry-Specific Manufacturing Guides</h3>
+          <p class="kc-cat-desc">Deep dives into electrical component fabrication, sheet metal laser and press brakes, injection moulding, and assembly lines.</p>
+        </div>
+        <div class="kc-articles-grid">
+          <div class="kc-article-card" data-title="electrical component manufacturing: processes, bom precision and traceability" data-desc="guide to electrical component manufacturing: stamping, injection moulding, sub-assembly, testing, bom precision, and lot traceability in switches and panels.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 26</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="industry-guides/electrical-component-manufacturing.html">Electrical Component Manufacturing: Processes, BOM Precision and Traceability</a></h4>
+            <p class="kc-card-desc">Guide to electrical component manufacturing: stamping, injection moulding, sub-assembly, testing, BOM precision, and lot traceability in switches and panels.</p>
+            <div class="kc-card-footer">
+              <a href="industry-guides/electrical-component-manufacturing.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is sheet metal fabrication? cutting, bending, nesting and job control" data-desc="understand sheet metal fabrication: laser cutting, cnc shearing, punching, bending, welding, powder coating, nesting efficiency, and job order control.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 27</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="industry-guides/what-is-sheet-metal-fabrication.html">What Is Sheet Metal Fabrication? Cutting, Bending, Nesting and Job Control</a></h4>
+            <p class="kc-card-desc">Understand sheet metal fabrication: laser cutting, CNC shearing, punching, bending, welding, powder coating, nesting efficiency, and job order control.</p>
+            <div class="kc-card-footer">
+              <a href="industry-guides/what-is-sheet-metal-fabrication.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is injection moulding? parameters, cycle times and defect prevention" data-desc="master injection moulding operations: melt/mould temperature, injection pressure, holding time, cooling cycle, cavity balancing, and scrap monitoring.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 28</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="industry-guides/what-is-injection-moulding.html">What Is Injection Moulding? Parameters, Cycle Times and Defect Prevention</a></h4>
+            <p class="kc-card-desc">Master injection moulding operations: melt/mould temperature, injection pressure, holding time, cooling cycle, cavity balancing, and scrap monitoring.</p>
+            <div class="kc-card-footer">
+              <a href="industry-guides/what-is-injection-moulding.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+          <div class="kc-article-card" data-title="what is assembly line manufacturing? line balancing, takt time and flow" data-desc="optimize assembly line manufacturing: workstation balancing, standard work instructions, takt time synchronization, material kitting, and inline qc.">
+            <div class="kc-card-meta">
+              <span class="kc-badge">Article 29</span>
+              <span class="kc-read-time">4 min read</span>
+            </div>
+            <h4 class="kc-card-title"><a href="industry-guides/what-is-assembly-line-manufacturing.html">What Is Assembly Line Manufacturing? Line Balancing, Takt Time and Flow</a></h4>
+            <p class="kc-card-desc">Optimize assembly line manufacturing: workstation balancing, standard work instructions, takt time synchronization, material kitting, and inline QC.</p>
+            <div class="kc-card-footer">
+              <a href="industry-guides/what-is-assembly-line-manufacturing.html" class="kc-card-link">Read Guide &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <img src="../logo-horizontal.png" alt="ERPrath" class="brand-logo-img" width="188" height="32" loading="lazy" decoding="async">
+          </div>
+          <p>German-engineered industrial software for manufacturing and trade &mdash; MRP, inventory, job work and tax compliance in one platform. Engineered in Stuttgart. Operated worldwide.</p>
+          <p class="footer-meta">ERPrath GmbH &bull; K&ouml;nigstra&szlig;e 27, 70173 Stuttgart, Germany</p>
+          <p class="footer-meta">India office: Prestige Tech Park, Outer Ring Road, Bangalore 560103, India</p>
+          <p class="footer-meta footer-meta-small">Amtsgericht Stuttgart HRB 784512 &bull; USt-IdNr. DE327441098</p>
+          <div class="footer-contact-chips">
+            <a href="mailto:info@erprath.com">info@erprath.com</a>
+            <a href="tel:+919185009187">+91 91850 09187</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Product</h5>
+          <div class="footer-links">
+            <a href="../modules.html">Core Modules</a>
+            <a href="../solutions.html">Other Solutions</a>
+            <a href="../industries.html">Industries</a>
+            <a href="../roi.html">ROI Calculator</a>
+            <a href="../compare.html">Compare ERPrath</a>
+            <a href="../articles.html">ERP Articles &amp; Glossary</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Company</h5>
+          <div class="footer-links">
+            <a href="../index.html">About ERPrath</a>
+            <a href="../contact.html">Contact Sales</a>
+            <a href="../faq.html">Support &amp; FAQ</a>
+            <a href="mailto:info@erprath.com">info@erprath.com</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Head Office</h5>
+          <div class="footer-links">
+            <a href="../contact.html">ERPrath GmbH</a>
+            <a href="../contact.html">K&ouml;nigstra&szlig;e 27</a>
+            <a href="../contact.html">70173 Stuttgart, Germany</a>
+            <a href="../contact.html">Bangalore &bull; Mumbai &bull; Pune</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Global</h5>
+          <div class="footer-links">
+            <a href="../contact.html">Stuttgart &bull; HQ</a>
+            <a href="../contact.html">Bangalore &bull; Delivery</a>
+            <a href="../contact.html">Dubai &bull; MEA</a>
+            <a href="../contact.html">Singapore &bull; APAC</a>
+            <a href="../contact.html">India &amp; 14 Countries Served</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 ERPrath GmbH &bull; Stuttgart &bull; Bangalore &bull; Dubai &bull; Singapore. All rights reserved.</p>
+        <p class="footer-global-line">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <ellipse cx="12" cy="12" rx="9" ry="3.6"></ellipse>
+            <ellipse cx="12" cy="12" rx="3.6" ry="9"></ellipse>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+          </svg>
+          Engineered in Germany. Operated worldwide.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js" defer></script>
+  
+</body>
+</html>

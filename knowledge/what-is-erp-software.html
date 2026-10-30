@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ERPrath ERP | Enterprise Resource Planning for Manufacturing — erprath.com</title>
+  <meta name="description"
+    content="ERPrath is a German-engineered ERP platform for Indian manufacturing and trading. Shop-floor MRP, inventory, subcontracting, 100% GST e-invoicing — 214 premium digital solutions on one platform.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://www.erprath.com/">
+
+  <!-- Google Search & High-DPI Favicons (48x48 multiple for Googlebot) -->
+  <link rel="icon" href="../favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <script>
+    if (window.location.protocol === 'file:') {
+      (function () {
+        var d = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAFE0lEQVR42u1W3Ysk1RX/nXNvffRHdU/3TmczrBA3qyvu9IyfMZGgosKCrF8oiF9IyL8h5CnkPQRC8iTigkLQkJjNbvAlIeLKqCuCjruzQ2AXd0a3v6anq3uqu+69Jw/TtdM9mUUlDz44B4q6daru/f3uqd855wL7tm/fd6PdDs/zUJ+ff1mxul2cHYHI+58pBEBkfN+1koyd42cROBBgU7PWi3tvrq9/eXYrSRwRQUSmCWTOarVSueXo0bZJ0z0oEghyDXd73iQfBuB2fETX+BEznLX/urj6nxOdjY0+APDk0iICIkK73elcunT5iOd7EBEzfpt9NQU+OXfb77bHMuEXSQQwxpiElXrg5qNHlvL5vAIAted/IUKv1+sEQbgURdFjJBgQq5SIh9nFExeIh8w775TilFmNmChRSlmlOCcCZmbtnEs87c0ppc+12+0LdD0CIII4h0KxqMdB/gZykmwkWTQB0KFDc0/VZg+8kaZmRETMzJwM0z+dO3fuWb0HOkQEWQz7cWz+X6U3Gq0zP6gdBGDBTAAISqk8AOjd4BBBVDuYo8oPb3LOCRGpTM5TisuyYUoIzgp7oTeMr3Qvr647EeTCkI8c/vHvnBWnWLM457TWuhN3/zpNYLxwqXYwDO59/GJC3iGGQMaqz8I8lXUymX4Owh4KsnVpuHRmwYkgl8vxYr1+MgjC54wxhohApLRANtfW1k5OENgGD8MQ4Z0Pv9FPZY7toO2IfJC4DFUmdiwEDRBvY0siypvJjbpv9z8881S80TH5fF4tztf/7AfBY8aYhIh8APB9n8+vXFjodrvJVAS056F0z/Hf9HMHnkCawKmgOhXdXSJ11oLhQNYmTvszBdd/Z2sMHkWRt1Cvn9ZKP2yMSZhZA2DFnFxYWbllfX39clZzdLb8zA2HD0pY+JFuXvo9ax1C9khRgSOGdtZs+PnSsQH8+5zyw0Ian9paOv1kvNExpXI5WDw2/09W6mfGmBEz+9vgauP8yvmjX1292sjAp0rxpPPrrFypqPDu46/1wgPPFUcbf+mfPfV0f7NrZ2ZmcvX5+nsE3G6tHY13DqVUc/n857c2Go32bhw9WckyIYaFIuuZWkVEmGi78IoImBhevjjLhxf/0AvL9xcGrbcGH/zjmf5m13q+j/qx+Q+Z6Ng47CEAo1jFny5/dqTVasV7bVLvRIAh4jAzd0PBv+v4v0cquGNH5oKMnxNg6IB83Hw9Xjr94lbcc0QEaww2ut3f1mZn/2itdRNdI1+tVh9stVpv7xVhNQkeHaj54U8e+SgWvShpkjhj4Ywz1lgr1ogbpbFjFRSGnZP99//+0lY/vtbVRARXG1c/KpVK7ahYfNxaOyCmwDkn1Ur1hSAIlput1nLWnKYIAIJCFHHupydODSi4h+2oByZFgCOCgCFwMkKYi/JbnVd7Z//2i2TQl52iNFH1mo2lKCpuRsXoUWPMgJkDY8ygUq48H+ZynzWajSkSCgCK1Vk/+vkT7/bzlQcUgeAFAWlPQ/sa2tOktOYg8POD1iub7536ZTIY7AmeaanRbL5fKpeGxULxkbEeAmNMv1wuvxiGwcfNZvPC1IFk7tbFG01Uu1vSUV8IatxWZKrRDPtfxKuffjIcDnE98MlsUkrhtoXFl8vl8q/TNL3mDwIfV66sPb2yevEt5xzo25+hrg++m4TneVicX/hVLpd7SCAOImxFRoHv166sr72wurq6vH8o3bd9+87tvxV4pCkPEk+KAAAAAElFTkSuQmCC';
+        var l = document.querySelector('link[rel="shortcut icon"]') || document.createElement('link');
+        l.type = 'image/png';
+        l.rel = 'shortcut icon';
+        l.href = d;
+        document.head.appendChild(l);
+      })();
+    }
+  </script>
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ERPrath ERP Software">
+  <meta property="og:title" content="ERPrath ERP | German-engineered ERP for Indian manufacturing">
+  <meta property="og:description" content="One platform. 214 premium digital solutions. MRP, inventory, job work and GST compliance — engineered in Stuttgart, supported from Bangalore.">
+  <meta property="og:url" content="https://www.erprath.com/">
+  <meta property="og:image" content="https://www.erprath.com/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ERPrath ERP Software">
+  <meta name="twitter:description" content="German-engineered ERP for Indian manufacturing — 214 digital solutions on one platform.">
+  <meta name="twitter:image" content="https://www.erprath.com/og-image.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://www.erprath.com/#website",
+        "url": "https://www.erprath.com/",
+        "name": "ERPrath ERP",
+        "alternateName": ["ERP", "ERP System", "ERPrath", "ERP Software India"]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://www.erprath.com/#software",
+        "name": "ERPrath ERP",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web, Windows, Linux, Android, iOS",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://www.erprath.com/#organization",
+        "name": "ERPrath GmbH",
+        "url": "https://www.erprath.com/",
+        "logo": "https://www.erprath.com/logo.png",
+        "email": "info@erprath.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Königstraße 27",
+          "postalCode": "70173",
+          "addressLocality": "Stuttgart",
+          "addressCountry": "DE"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+91-9185009187",
+          "email": "info@erprath.com",
+          "contactType": "sales",
+          "areaServed": "IN",
+          "availableLanguage": ["English", "Hindi", "German"]
+        }
+      }
+    ]
+  }
+  </script>
+
+  <title>What Is ERP Software? A Complete Guide for Manufacturers — ERPrath</title>
+  <meta name="description" content="Understand ERP software, its modules, benefits and how it connects production, inventory, purchasing, quality and accounting in manufacturing businesses.">
+  <link rel="canonical" href="https://www.erprath.com/knowledge/what-is-erp-software.html">
+
+  <style>
+    .article-post-hero {
+      padding: 7.5rem 0 3rem;
+      background: radial-gradient(circle at 50% 10%, rgba(0, 113, 227, 0.05) 0%, transparent 60%);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .post-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+    .post-breadcrumb a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .post-breadcrumb a:hover {
+      color: var(--primary);
+    }
+    .post-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .post-tag {
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      background: rgba(0, 113, 227, 0.08);
+      color: var(--primary);
+      font-weight: 600;
+      border: 1px solid rgba(0, 113, 227, 0.2);
+    }
+    .article-post-hero h1 {
+      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      color: var(--text-main);
+      margin-bottom: 1.25rem;
+      max-width: 900px;
+    }
+    .article-post-lead {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 820px;
+    }
+    .article-post-body {
+      padding: 4rem 0 6rem;
+    }
+    .article-content-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .article-heading {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin: 3rem 0 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-light);
+    }
+    .article-subheading {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 2rem 0 0.85rem;
+    }
+    .article-p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+    }
+    .article-list {
+      margin: 1.25rem 0 2rem 1.5rem;
+      line-height: 1.8;
+      font-size: 1.02rem;
+    }
+    .article-list li {
+      margin-bottom: 0.6rem;
+      color: var(--text-main);
+    }
+    .step-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+      line-height: 1.7;
+    }
+    .step-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary);
+      margin-top: 0.6rem;
+      flex-shrink: 0;
+    }
+    .table-responsive {
+      overflow-x: auto;
+      margin: 2rem 0 2.5rem;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+    }
+    .article-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      text-align: left;
+    }
+    .article-table th {
+      background: rgba(0, 0, 0, 0.03);
+      padding: 0.95rem 1.25rem;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-main);
+    }
+    .article-table td {
+      padding: 0.95rem 1.25rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-muted);
+    }
+    .article-table tr:last-child td {
+      border-bottom: none;
+    }
+    .article-nav-box {
+      margin-top: 4rem;
+      padding: 2.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Sticky Navbar Header -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="../index.html" class="brand-logo" aria-label="ERPrath - Home">
+        <img src="../logo-horizontal.png" alt="ERPrath" class="brand-logo-img" width="212" height="36" fetchpriority="high" decoding="async">
+      </a>
+
+      <nav class="nav-menu" id="navMenu" aria-label="Main navigation">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../modules.html" class="nav-link">Modules</a>
+        <a href="../solutions.html" class="nav-link">Other Solutions</a>
+        <a href="../industries.html" class="nav-link">Industries</a>
+        <a href="../index.html#configurator" class="nav-link">Configure</a>
+        <a href="../roi.html" class="nav-link">ROI</a>
+        <a href="../compare.html" class="nav-link">Compare</a>
+        <a href="../articles.html" class="nav-link active">Articles</a>
+        <a href="../faq.html" class="nav-link">FAQ</a>
+        <a href="../contact.html" class="btn btn-primary nav-menu-cta">Schedule Briefing</a>
+      </nav>
+
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="tel:+919185009187" class="nav-phone-btn"
+          style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; padding: 0.5rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light); background: rgba(0, 0, 0, 0.02); transition: all 0.2s ease; text-decoration: none;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+            </path>
+          </svg>
+          <span>+91 91850 09187</span>
+        </a>
+        <a href="../contact.html" class="btn btn-primary">
+          <span>Enterprise Briefing</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- Article Hero -->
+    <article>
+      <header class="article-post-hero">
+        <div class="container">
+          <nav class="post-breadcrumb" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a>
+            <span>/</span>
+            <a href="../articles.html">Articles</a>
+            <span>/</span>
+            <span>Article 1</span>
+          </nav>
+          
+          <div class="post-meta-row">
+            <span class="post-tag">ERP Software</span>
+            <span>Published October 30, 2026</span>
+            <span>·</span>
+            <span>6 min read</span>
+            <span>·</span>
+            <span>German Industrial Architecture</span>
+          </div>
+
+          <h1>What Is ERP Software? A Complete Guide for Manufacturing Businesses</h1>
+          <p class="article-post-lead">Running a manufacturing business involves coordinating multiple departments. Discover how centralized ERP connects procurement, shop-floor planning, inventory, and accounts into one real-time data model.</p>
+        </div>
+      </header>
+
+      <!-- Article Content Body -->
+      <div class="article-post-body">
+        <div class="container">
+          <div class="article-content-wrap">
+<h2 class='article-heading'>Introduction</h2>
+<p class='article-p'>Running a manufacturing business involves coordinating multiple departments, including purchase, stores, production, quality, dispatch and accounts. When each department maintains separate records, information becomes fragmented and decision-making becomes difficult.</p>
+<p class='article-p'>ERP (Enterprise Resource Planning) software solves this problem by connecting business operations through a centralized system.</p>
+<p class='article-p'>Instead of maintaining disconnected spreadsheets and registers, an ERP system allows departments to work with shared business data.</p>
+<h2 class='article-heading'>What Is ERP Software?</h2>
+<p class='article-p'>ERP software is an integrated business management system that helps organizations manage their resources, processes and information from a centralized platform.</p>
+<p class='article-p'>For a manufacturing company, ERP can connect:</p>
+<ul class='article-list'>
+<li>Purchase and procurement</li>
+<li>Raw material inventory</li>
+<li>Production planning and control</li>
+<li>Bill of Materials (BOM)</li>
+<li>Work orders and job cards</li>
+<li>Quality inspection</li>
+<li>Finished goods inventory</li>
+<li>Sales and dispatch</li>
+<li>Accounting and finance</li>
+<li>Payroll and employee management</li>
+</ul>
+<p class='article-p'>The purpose is to maintain accurate information and coordinate activities across departments.</p>
+<h2 class='article-heading'>How Does ERP Work in Manufacturing?</h2>
+<p class='article-p'>Consider a company manufacturing electrical components.</p>
+<p class='article-p'>A typical ERP workflow looks like this:</p>
+<div class='step-item'><span class='step-dot'></span><p>Sales or management receives a customer requirement.</p></div>
+<div class='step-item'><span class='step-dot'></span><p>Planning prepares a production plan.</p></div>
+<div class='step-item'><span class='step-dot'></span><p>ERP checks the required materials against available stock.</p></div>
+<div class='step-item'><span class='step-dot'></span><p>Purchase identifies shortages and raises purchase orders.</p></div>
+<div class='step-item'><span class='step-dot'></span><p>Stores receives material and records the Goods Receipt Note (GRN).</p></div>
+<div class='step-item'><span class='step-dot'></span><p>Production receives material against a work order.</p></div>
+<div class='step-item'><span class='step-dot'></span><p>Quality performs inspections.</p></div>
+<div class='step-item'><span class='step-dot'></span><p>Finished goods are transferred to the warehouse.</p></div>
+<div class='step-item'><span class='step-dot'></span><p>Dispatch processes the customer order.</p></div>
+<div class='step-item'><span class='step-dot'></span><p>Accounts records invoices, expenses and payments.</p></div>
+<p class='article-p'>Each transaction updates the relevant records, subject to the ERP's posting and approval rules.</p>
+<h2 class='article-heading'>Important ERP Modules</h2>
+<p class='article-p'><strong>1. Purchase Management:</strong> Manages purchase requisitions, supplier quotations, purchase orders and supplier records.</p>
+<p class='article-p'><strong>2. Inventory Management:</strong> Tracks raw materials, semi-finished goods, finished goods, stock movements and warehouse balances.</p>
+<p class='article-p'><strong>3. Production Planning:</strong> Helps planners prepare schedules based on demand, material availability, production capacity and lead times.</p>
+<p class='article-p'><strong>4. Production Management:</strong> Controls work orders, material issues, production output, rejections and scrap.</p>
+<p class='article-p'><strong>5. Quality Management:</strong> Records incoming, in-process and final inspections, non-conformances and corrective actions.</p>
+<p class='article-p'><strong>6. Accounting:</strong> Manages financial transactions, ledgers, receivables, payables and financial statements.</p>
+<h2 class='article-heading'>Benefits of ERP Software</h2>
+<ul class='article-list'>
+<li>Centralized business information</li>
+<li>Better inventory visibility</li>
+<li>Improved production coordination</li>
+<li>Reduced duplicate data entry</li>
+<li>Better purchase planning</li>
+<li>Traceable material movements</li>
+<li>More reliable management reports</li>
+<li>Improved operational control</li>
+</ul>
+<p class='article-p'>ERP does not automatically eliminate every business problem. Its results depend on accurate master data, well-designed processes, employee training and consistent transaction recording.</p>
+<h2 class='article-heading'>When Should a Manufacturing Company Implement ERP?</h2>
+<p class='article-p'>A company should consider ERP when it experiences problems such as:</p>
+<ul class='article-list'>
+<li>Frequent raw material shortages</li>
+<li>Difficulty tracking work orders</li>
+<li>Inaccurate stock balances</li>
+<li>Delayed production reports</li>
+<li>Multiple Excel files containing conflicting data</li>
+<li>Poor visibility of work-in-progress</li>
+<li>Difficulty calculating manufacturing costs</li>
+</ul>
+<h2 class='article-heading'>Conclusion</h2>
+<p class='article-p'>ERP software connects departments and provides a structured way to manage manufacturing operations. For growing manufacturers, it can become the foundation for better planning, inventory control, production tracking and financial visibility.</p>
+<p class='article-p'><strong>Explore related topics:</strong> Manufacturing ERP, Production Planning and Control, Inventory Management and BOM Management.</p>
+
+            <div class="article-nav-box">
+              <div>
+                <span class="badge badge-tech" style="margin-bottom: 0.5rem;">Next Step</span>
+                <h4 style="margin: 0 0 0.25rem;">Explore Full Knowledge Compendium</h4>
+                <p style="margin: 0; color: var(--text-muted); font-size: 0.92rem;">Review 200 manufacturing &amp; ERP principles across all 11 plant domains.</p>
+              </div>
+              <div style="display: flex; gap: 0.75rem;">
+                <a href="../articles.html" class="btn btn-secondary">All Articles &amp; 200 Principles</a>
+                <a href="../contact.html" class="btn btn-primary">Schedule Briefing</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <img src="../logo-horizontal.png" alt="ERPrath" class="brand-logo-img" width="188" height="32" loading="lazy" decoding="async">
+          </div>
+          <p>German-engineered industrial software for manufacturing and trade — MRP, inventory, job work and tax
+            compliance in one platform. Engineered in Stuttgart. Operated worldwide.</p>
+          <p class="footer-meta">ERPrath GmbH · Königstraße 27, 70173 Stuttgart, Germany</p>
+          <p class="footer-meta">India office: Prestige Tech Park, Outer Ring Road, Bangalore 560103, India</p>
+          <p class="footer-meta footer-meta-small">Amtsgericht Stuttgart HRB 784512 · USt-IdNr. DE327441098</p>
+          <div class="footer-contact-chips">
+            <a href="mailto:info@erprath.com">info@erprath.com</a>
+            <a href="tel:+919185009187">+91 91850 09187</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Product</h5>
+          <div class="footer-links">
+            <a href="../modules.html">Core Modules</a>
+            <a href="../solutions.html">Other Solutions</a>
+            <a href="../industries.html">Industries</a>
+            <a href="../roi.html">ROI Calculator</a>
+            <a href="../compare.html">Compare ERPrath</a>
+            <a href="../articles.html">ERP Articles &amp; Glossary</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Company</h5>
+          <div class="footer-links">
+            <a href="../index.html">About ERPrath</a>
+            <a href="../contact.html">Contact Sales</a>
+            <a href="../faq.html">Support &amp; FAQ</a>
+            <a href="mailto:info@erprath.com">info@erprath.com</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Head Office</h5>
+          <div class="footer-links">
+            <a href="../contact.html">ERPrath GmbH</a>
+            <a href="../contact.html">Königstraße 27</a>
+            <a href="../contact.html">70173 Stuttgart, Germany</a>
+            <a href="../contact.html">Bangalore · Mumbai · Pune (India)</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Global</h5>
+          <div class="footer-links">
+            <a href="../contact.html">Stuttgart (Germany) · HQ</a>
+            <a href="../contact.html">Bangalore (India) · Delivery</a>
+            <a href="../contact.html">Dubai · MEA</a>
+            <a href="../contact.html">Singapore · APAC</a>
+            <a href="../contact.html">India &amp; 14 Countries Served</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 ERPrath GmbH · Germany · India · Dubai · Singapore. All rights reserved.</p>
+        <p class="footer-global-line">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+            aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <ellipse cx="12" cy="12" rx="9" ry="3.6"></ellipse>
+            <ellipse cx="12" cy="12" rx="3.6" ry="9"></ellipse>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+          </svg>
+          Engineered in Germany. Operated worldwide.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../script.js" defer></script>
+</body>
+
+</html>
