@@ -1,31 +1,120 @@
 // ERPrath Enterprise ERP - Interactive Script
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Sticky Navbar Scroll Effect
+  // 1. Sticky Navbar Scroll Effect + Back-to-Top visibility (rAF-throttled)
   const navbar = document.getElementById('navbar');
+  const backToTopBtn = document.getElementById('backToTop');
+  let scrollScheduled = false;
+
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-  });
+    if (scrollScheduled) return;
+    scrollScheduled = true;
+    requestAnimationFrame(() => {
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+      if (backToTopBtn) {
+        backToTopBtn.classList.toggle('visible', window.scrollY > 500);
+      }
+      scrollScheduled = false;
+    });
+  }, { passive: true });
 
   // 2. Mobile Menu Toggle & Auto-Close
   const mobileToggle = document.getElementById('mobileToggle');
   const navMenu = document.getElementById('navMenu');
   if (mobileToggle && navMenu) {
     mobileToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
+      const isOpen = navMenu.classList.toggle('active');
+      mobileToggle.setAttribute('aria-expanded', String(isOpen));
+      mobileToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      mobileToggle.textContent = isOpen ? '✕' : '☰';
     });
 
     // Close menu when clicking nav links
     const navLinks = navMenu.querySelectorAll('.nav-link');
+    const closeMenu = () => {
+      navMenu.classList.remove('active');
+      mobileToggle.setAttribute('aria-expanded', 'false');
+      mobileToggle.setAttribute('aria-label', 'Open menu');
+      mobileToggle.textContent = '☰';
+    };
+    mobileToggle._closeMenu = closeMenu;
+
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
+        closeMenu();
+      });
+
+      // Smooth scroll offset-aware (account for fixed navbar)
+      link.addEventListener('click', (e) => {
+        const targetId = link.getAttribute('href');
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          const offset = window.innerWidth < 1025 ? 70 : 90;
+          window.scrollTo({ top: targetEl.offsetTop - offset, behavior: 'smooth' });
+        }
       });
     });
+
+    // Close menu when tapping outside of it
+    document.addEventListener('click', (e) => {
+      if (navMenu.classList.contains('active') &&
+          !navMenu.contains(e.target) &&
+          !mobileToggle.contains(e.target)) {
+        closeMenu();
+      }
+    });
   }
+
+  // 2a. Scroll-spy: highlight the nav link of the section in view
+  const spySections = ['overview', 'modules', 'industries', 'catalogue', 'calculator', 'compare', 'faq'];
+  const spyLinks = new Map();
+  spySections.forEach(id => {
+    const link = document.querySelector('.nav-link[href="#' + id + '"]');
+    if (link) spyLinks.set(id, link);
+  });
+  if (spyLinks.size) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          spyLinks.forEach(l => l.classList.remove('active'));
+          const active = spyLinks.get(entry.target.id);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    spySections.forEach(id => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+  }
+
+  // 2b. Back to Top Button
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // 2c. Keyboard support: Escape closes modal & mobile menu
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const demoModal = document.getElementById('demoModal');
+      if (demoModal) demoModal.classList.remove('active');
+      if (navMenu && navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+        if (mobileToggle) {
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.setAttribute('aria-label', 'Open menu');
+          mobileToggle.textContent = '☰';
+        }
+      }
+    }
+  });
 
   // 2b. FAQ Accordion Toggle
   const faqQuestions = document.querySelectorAll('.faq-question');
@@ -36,9 +125,13 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Close other items
       document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
-      
+      document.querySelectorAll('.faq-question').forEach(q => q.setAttribute('aria-expanded', 'false'));
+
       if (!isActive) {
         faqItem.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      } else {
+        btn.setAttribute('aria-expanded', 'false');
       }
     });
   });
@@ -71,11 +164,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  let currentView = 'mfg';
+
   dashTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       dashTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       const view = tab.dataset.tab;
+      currentView = view;
       
       if (dashData[view]) {
         kpiOee.innerHTML = `${dashData[view].oee} <span class="kpi-trend trend-up">${dashData[view].oeeTrend}</span>`;
@@ -86,7 +182,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 4. Manufacturing ROI Calculator
+    // Trend badges pulse-menu: simulate live sensor drift so the dashboard feels alive
+    let oeeDrift = 88.4;
+    setInterval(() => {
+      if (document.hidden || currentView !== 'mfg' || !kpiOee) return; // zero work on hidden tabs
+      oeeDrift = Math.min(90.2, Math.max(87.6, oeeDrift + (Math.random() - 0.5) * 0.5));
+      kpiOee.innerHTML = `${oeeDrift.toFixed(1)}% <span class="kpi-trend trend-up">${dashData.mfg.oeeTrend}</span>`;
+    }, 4000);
+
   const revenueSlider = document.getElementById('revenueSlider');
   const revenueVal = document.getElementById('revenueVal');
   const plantCountSlider = document.getElementById('plantCountSlider');
@@ -113,6 +216,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     prodEfficiency.textContent = `+${effBoost}%`;
     stockoutDrop.textContent = `-${wasteRed}%`;
+
+    // Pop feedback on the savings figure while dragging
+    annualSavings.classList.remove('pop');
+    void annualSavings.offsetWidth; // reflow to restart transition
+    annualSavings.classList.add('pop');
+    setTimeout(() => annualSavings.classList.remove('pop'), 160);
   }
 
   if (revenueSlider && plantCountSlider) {
@@ -131,7 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
   openModalBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
+      if (!demoModal) return;
       demoModal.classList.add('active');
+      // Close mobile menu behind the modal
+      if (mobileToggle && mobileToggle._closeMenu && navMenu.classList.contains('active')) {
+        mobileToggle._closeMenu();
+      }
     });
   });
 
@@ -168,8 +282,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await response.json();
 
         if (result.success) {
-          demoModal.classList.remove('active');
-          
+          if (demoModal) demoModal.classList.remove('active');
+
           // Show Toast Notification
           if (toast) {
             toast.querySelector('h5').textContent = 'Demo Request Received!';
@@ -185,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } catch (err) {
         console.error('Web3Forms submit error:', err);
-        demoModal.classList.remove('active');
+        if (demoModal) demoModal.classList.remove('active');
         if (toast) {
           toast.classList.add('active');
           setTimeout(() => {
@@ -198,5 +312,225 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = false;
       }
     });
+  }
+
+  // 6. Apple-style Scroll Reveal — auto-applied, staggered per grid
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const revealTargets = document.querySelectorAll(
+    '.section-header, .module-card, .industry-card, .seo-knowledge-card, .stat-item, .roi-box, .comparison-table-wrap, .faq-item, .cta-banner'
+  );
+
+  document.querySelectorAll('.modules-grid, .industries-grid, .seo-knowledge-grid, .stats-grid, .faq-grid').forEach(grid => {
+    Array.from(grid.children).forEach((child, i) => {
+      child.style.setProperty('--reveal-delay', `${Math.min(i * 0.08, 0.4)}s`);
+    });
+  });
+
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    revealTargets.forEach(el => el.classList.add('reveal'));
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        el.classList.add('visible');
+        revealObserver.unobserve(el);
+
+        // Clear animation classes after play so hover transforms work afterwards
+        el.addEventListener('animationend', () => {
+          el.classList.remove('reveal', 'visible');
+          el.style.removeProperty('--reveal-delay');
+        }, { once: true });
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealTargets.forEach(el => revealObserver.observe(el));
+  }
+
+  // 7. Animated Stat Counters (250+ / 28% / ₹850 Cr+ / 99.9%)
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      counterObserver.unobserve(entry.target);
+
+      const el = entry.target;
+      const original = el.dataset.original || el.textContent;
+      el.dataset.original = original;
+
+      const match = original.match(/([₹€$]?)([\d,.]+)(.*)/);
+      if (!match) return;
+
+      const [, prefix, digits, suffix] = match;
+      const decimals = (digits.match(/\./g) || []).length;
+      const target = parseFloat(digits.replace(/,/g, ''));
+      if (isNaN(target)) return;
+
+      if (reduceMotion) {
+        el.textContent = original;
+        return;
+      }
+
+      function formatValue(v) {
+        return decimals
+          ? v.toFixed(decimals)
+          : v.toLocaleString('en-IN');
+      }
+
+      const duration = 1600;
+      const start = performance.now();
+
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 4); // ease-out quart
+        el.textContent = prefix + formatValue(target * eased) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+        else el.textContent = original; // settle on exact original string
+      }
+
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.6 });
+
+  document.querySelectorAll('.stat-item h3').forEach(el => counterObserver.observe(el));
+
+  // 8. Live Shop Floor Feed — items cycle to simulate a real-time feed
+  const liveFeed = document.querySelector('.live-feed');
+  if (liveFeed && !reduceMotion) {
+    setInterval(() => {
+      if (document.hidden) return; // zero work on hidden tabs
+      const items = liveFeed.querySelectorAll('.feed-item');
+      if (items.length < 2) return;
+      const first = items[0];
+      first.classList.add('fade-out');
+      setTimeout(() => {
+        liveFeed.appendChild(first);
+        first.classList.remove('fade-out');
+      }, 300);
+    }, 5000);
+  }
+
+  // 9. Hero Glow Mouse Parallax (desktop, fine pointers only)
+  const hero = document.querySelector('.hero');
+  const glow1 = document.querySelector('.hero-glow-1');
+  const glow2 = document.querySelector('.hero-glow-2');
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  if (hero && glow1 && glow2 && finePointer && !reduceMotion && window.innerWidth > 768) {
+    let targetX = 0, targetY = 0, animating = false;
+    const AMP = 45;
+
+    hero.addEventListener('mousemove', (e) => {
+      targetX = (e.clientX / window.innerWidth - 0.5) * 2;   // -1 to 1
+      targetY = (e.clientY / window.innerHeight - 0.5) * 2;
+
+      if (!animating) {
+        animating = true;
+        requestAnimationFrame(() => {
+          // Glows drift opposite directions for depth
+          glow1.style.transform = `translate(${targetX * AMP}px, ${targetY * AMP}px)`;
+          glow2.style.transform = `translate(${-targetX * AMP * 0.7}px, ${-targetY * AMP * 0.7}px)`;
+          animating = false;
+        });
+      }
+    }, { passive: true });
+
+    hero.addEventListener('mouseleave', () => {
+      glow1.style.transform = '';
+      glow2.style.transform = '';
+    }, { passive: true });
+  }
+
+  // 10. Other Solutions — industry filtering with animated results
+  const filterChips = document.querySelectorAll('.filter-chip');
+  const productCards = document.querySelectorAll('.product-card');
+  const catalogueCount = document.getElementById('catalogueCount');
+
+  function applyCatalogueFilter(category, animate) {
+    let visible = 0;
+
+    productCards.forEach((card, index) => {
+      const match = category === 'all' || card.dataset.cat === category;
+      card.classList.toggle('hidden', !match);
+
+      if (match) {
+        visible++;
+        if (animate && !reduceMotion) {
+          card.style.animation = 'none';
+          void card.offsetWidth; // restart animation
+          card.style.animation = `fadeInUp 0.45s ${Math.min(index * 0.03, 0.25)}s backwards`;
+        }
+      }
+    });
+
+    if (catalogueCount) {
+      catalogueCount.textContent = `Showing ${visible} of 214 solutions`;
+    }
+  }
+
+  filterChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      filterChips.forEach(c => {
+        c.classList.remove('active');
+        c.setAttribute('aria-selected', 'false');
+      });
+      chip.classList.add('active');
+      chip.setAttribute('aria-selected', 'true');
+      applyCatalogueFilter(chip.dataset.filter, true);
+    });
+  });
+
+  // Deep-link from the Industries page: solutions.html?cat=auto
+  const requestedCat = new URLSearchParams(window.location.search).get('cat');
+  const requestedChip = requestedCat
+    ? document.querySelector(`.filter-chip[data-filter="${requestedCat}"]`)
+    : null;
+
+  if (requestedChip) {
+    requestedChip.click();
+  } else if (productCards.length) {
+    applyCatalogueFilter('all', false);
+  }
+
+  // 11. Live Global Region Clocks (Stuttgart, Bengaluru, Dubai, Singapore)
+  const regionCards = document.querySelectorAll('.region-card[data-tz]');
+  if (regionCards.length) {
+    const updateRegionClocks = () => {
+      const now = new Date();
+      regionCards.forEach(card => {
+        const tz = card.getAttribute('data-tz');
+        const timeEl = card.querySelector('.region-time');
+        if (timeEl && tz) {
+          try {
+            const timeStr = new Intl.DateTimeFormat('en-GB', {
+              timeZone: tz,
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+              hour12: false
+            }).format(now);
+            timeEl.textContent = `${timeStr} UTC`;
+          } catch (e) {
+            // fallback
+          }
+        }
+      });
+    };
+    updateRegionClocks();
+    setInterval(updateRegionClocks, 1000);
+  }
+
+  // 12. Global Edge Network Latency Simulator
+  const latencyNodes = document.querySelectorAll('.ping-val');
+  if (latencyNodes.length) {
+    setInterval(() => {
+      if (document.hidden) return;
+      latencyNodes.forEach(node => {
+        const base = parseInt(node.getAttribute('data-base') || '12', 10);
+        const jitter = Math.floor((Math.random() - 0.5) * 3);
+        const val = Math.max(1, base + jitter);
+        node.textContent = `${val}ms`;
+      });
+    }, 2800);
   }
 });
