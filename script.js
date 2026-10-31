@@ -763,4 +763,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateBleedCalc();
   }
+
+  // 15. Compare Table Dimension Category Filter
+  const compareFilterBtns = document.querySelectorAll('.compare-filter-btn');
+  const compareTableRows = document.querySelectorAll('#compareTable tbody tr[data-category]');
+
+  if (compareFilterBtns.length && compareTableRows.length) {
+    compareFilterBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const cat = btn.getAttribute('data-cat');
+
+        compareFilterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        compareTableRows.forEach(row => {
+          const rowCat = row.getAttribute('data-category');
+          if (cat === 'all' || rowCat === cat) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
 });

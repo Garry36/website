@@ -40,7 +40,7 @@
         ['Vector APQP', 'Stage-gated launch workspace with structured evidence capture.'],
         ['Beacon Mobility', 'Offline-first shop-floor app with conflict-safe synchronisation.'],
         ['Cipher Vault', 'Field-level encryption, immutable logs and zero-trust access control.'],
-        ['Ledger Bridge', 'Two-way posting to Tally Prime, SAP and direct bank feeds.'],
+        ['Ledger Bridge', 'Two-way posting to standard accounting packages, SAP and direct bank feeds.'],
         ['Echo Signature', 'eSign and digital approval chains with tamper-evident trails.'],
         ['Vector Labels', 'GS1-compliant barcode and QR generation at print-line speed.'],
         ['Orbit Sandbox', 'Isolated replica environments for safe change management.']
