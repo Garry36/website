@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /.history/
+Disallow: /__pycache__/
 
 Sitemap: https://www.erprath.com/sitemap.xml

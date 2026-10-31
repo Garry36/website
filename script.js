@@ -1,25 +1,87 @@
 // ERPrath Enterprise ERP - Interactive Script
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Sticky Navbar Scroll Effect + Back-to-Top visibility (rAF-throttled)
+  // 1. Sticky Navbar Scroll Effect + Back-to-Top visibility + Dynamic Sticky Bottom Price Bar
   const navbar = document.getElementById('navbar');
   const backToTopBtn = document.getElementById('backToTop');
+  const bottomPriceBar = document.getElementById('bottomPriceBar');
+  const globalSection = document.getElementById('global');
+  const priceBarDismiss = document.getElementById('priceBarDismiss');
+  let priceBarDismissed = false;
+  try {
+    priceBarDismissed = sessionStorage.getItem('erprath_pricebar_dismissed') === 'true';
+  } catch (e) {}
+
+  if (priceBarDismiss && bottomPriceBar) {
+    priceBarDismiss.addEventListener('click', () => {
+      priceBarDismissed = true;
+      try {
+        sessionStorage.setItem('erprath_pricebar_dismissed', 'true');
+      } catch (e) {}
+      bottomPriceBar.classList.remove('visible');
+      document.body.classList.remove('price-bar-active');
+      bottomPriceBar.setAttribute('aria-hidden', 'true');
+    });
+  }
+
+  // Smooth scroll for price-bar-link
+  const priceBarLinks = document.querySelectorAll('.price-bar-link[href^="#"]');
+  priceBarLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const targetId = link.getAttribute('href');
+      if (targetId) {
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          const offset = window.innerWidth < 1025 ? 70 : 90;
+          window.scrollTo({ top: targetEl.offsetTop - offset, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
+  const updatePriceBar = () => {
+    if (!bottomPriceBar || !globalSection || priceBarDismissed) return;
+    const rect = globalSection.getBoundingClientRect();
+    // Activates when scrolling reaches #global onward (when top of #global enters viewport)
+    const shouldShow = rect.top <= window.innerHeight * 0.8;
+    if (shouldShow) {
+      if (!bottomPriceBar.classList.contains('visible')) {
+        bottomPriceBar.classList.add('visible');
+        document.body.classList.add('price-bar-active');
+        bottomPriceBar.setAttribute('aria-hidden', 'false');
+      }
+    } else {
+      if (bottomPriceBar.classList.contains('visible')) {
+        bottomPriceBar.classList.remove('visible');
+        document.body.classList.remove('price-bar-active');
+        bottomPriceBar.setAttribute('aria-hidden', 'true');
+      }
+    }
+  };
+
   let scrollScheduled = false;
 
   window.addEventListener('scroll', () => {
     if (scrollScheduled) return;
     scrollScheduled = true;
     requestAnimationFrame(() => {
-      if (window.scrollY > 40) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
+      if (navbar) {
+        if (window.scrollY > 40) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
       }
       if (backToTopBtn) {
         backToTopBtn.classList.toggle('visible', window.scrollY > 500);
       }
+      updatePriceBar();
       scrollScheduled = false;
     });
   }, { passive: true });
+
+  // Initial check on load
+  updatePriceBar();
 
   // 2. Mobile Menu Toggle & Auto-Close (Supports #mobileToggle, #burgerMenu)
   const mobileToggle = document.getElementById('mobileToggle') || document.getElementById('burgerMenu') || document.querySelector('.mobile-toggle, .burger-menu');
@@ -83,17 +145,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 2a. Scroll-spy: highlight the nav link of the section in view
-  const spySections = ['overview', 'modules', 'industries', 'configurator', 'catalogue', 'calculator', 'compare', 'faq'];
+  const spySections = ['overview', 'modules', 'industries', 'pricing', 'catalogue', 'calculator', 'compare', 'faq'];
   const spyLinks = new Map();
+  const allNavLinks = document.querySelectorAll('.nav-link');
   spySections.forEach(id => {
-    const link = document.querySelector('.nav-link[href="#' + id + '"]');
+    const link = document.querySelector('.nav-link[href="#' + id + '"]')
+      || (id === 'overview' ? document.querySelector('.nav-link[href="index.html"]') : null);
     if (link) spyLinks.set(id, link);
   });
   if (spyLinks.size) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          spyLinks.forEach(l => l.classList.remove('active'));
+          // Clear every nav link first so page links (e.g. Home) don't stay active too.
+          allNavLinks.forEach(l => l.classList.remove('active'));
           const active = spyLinks.get(entry.target.id);
           if (active) active.classList.add('active');
         }
@@ -113,17 +178,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 2c. Keyboard support: Escape closes modal & mobile menu
+  // 2c. Keyboard support: Escape closes the mobile menu
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      const demoModal = document.getElementById('demoModal');
-      if (demoModal) demoModal.classList.remove('active');
-      if (navMenu && navMenu.classList.contains('active')) {
+    if (e.key !== 'Escape') return;
+    if (navMenu && navMenu.classList.contains('active')) {
+      if (mobileToggle && typeof mobileToggle._closeMenu === 'function') {
+        mobileToggle._closeMenu();
+      } else {
         navMenu.classList.remove('active');
         if (mobileToggle) {
           mobileToggle.setAttribute('aria-expanded', 'false');
           mobileToggle.setAttribute('aria-label', 'Open menu');
-          mobileToggle.textContent = '☰';
+          // Text-glyph toggles get reset; icon toggles (with <span> bars) keep their markup.
+          if (!mobileToggle.querySelector('span')) mobileToggle.textContent = '☰';
         }
       }
     }
@@ -243,38 +310,9 @@ document.addEventListener('DOMContentLoaded', () => {
     calculateROI(); // Initial run
   }
 
-  // 5. Demo Request Modal Logic
-  const demoModal = document.getElementById('demoModal');
-  const openModalBtns = document.querySelectorAll('.open-demo-modal');
-  const closeModalBtn = document.getElementById('closeModal');
+  // 5. Contact form submission
   const demoForm = document.getElementById('demoForm');
   const toast = document.getElementById('toast');
-
-  openModalBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (!demoModal) return;
-      demoModal.classList.add('active');
-      // Close mobile menu behind the modal
-      if (mobileToggle && mobileToggle._closeMenu && navMenu.classList.contains('active')) {
-        mobileToggle._closeMenu();
-      }
-    });
-  });
-
-  if (closeModalBtn) {
-    closeModalBtn.addEventListener('click', () => {
-      demoModal.classList.remove('active');
-    });
-  }
-
-  if (demoModal) {
-    demoModal.addEventListener('click', (e) => {
-      if (e.target === demoModal) {
-        demoModal.classList.remove('active');
-      }
-    });
-  }
 
   if (demoForm) {
     demoForm.addEventListener('submit', async (e) => {
@@ -295,12 +333,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await response.json();
 
         if (result.success) {
-          if (demoModal) demoModal.classList.remove('active');
-
           // Show Toast Notification
           if (toast) {
-            toast.querySelector('h5').textContent = 'Demo Request Received!';
-            toast.querySelector('p').textContent = 'Thank you! Our ERP solution team will contact you shortly.';
+            const toastIcon = toast.querySelector('.toast-icon');
+            const toastHeading = toast.querySelector('h5');
+            const toastMessage = toast.querySelector('p');
+            if (toastIcon) toastIcon.textContent = '✓';
+            if (toastHeading) toastHeading.textContent = 'Demo Request Received!';
+            if (toastMessage) {
+              toastMessage.textContent = 'Thank you! Our ERP solution team will contact you shortly.';
+            }
             toast.classList.add('active');
             setTimeout(() => {
               toast.classList.remove('active');
@@ -312,14 +354,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } catch (err) {
         console.error('Web3Forms submit error:', err);
-        if (demoModal) demoModal.classList.remove('active');
         if (toast) {
+          const toastIcon = toast.querySelector('.toast-icon');
+          const toastHeading = toast.querySelector('h5');
+          const toastMessage = toast.querySelector('p');
+          if (toastIcon) toastIcon.textContent = '!';
+          if (toastHeading) toastHeading.textContent = 'Submission Failed';
+          if (toastMessage) {
+            toastMessage.textContent = 'We could not send your request. Please try again or email info@erprath.com.';
+          }
           toast.classList.add('active');
           setTimeout(() => {
             toast.classList.remove('active');
+            if (toastIcon) toastIcon.textContent = '✓';
+            if (toastHeading) toastHeading.textContent = 'Demo Request Received!';
+            if (toastMessage) {
+              toastMessage.textContent = 'Thank you! Our ERP solution team will contact you shortly.';
+            }
           }, 5000);
         }
-        demoForm.reset();
+        // Keep the form filled in so the visitor can retry without re-entering details.
       } finally {
         submitBtn.innerText = originalBtnText;
         submitBtn.disabled = false;
@@ -371,11 +425,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const original = el.dataset.original || el.textContent;
       el.dataset.original = original;
 
-      const match = original.match(/([₹€$]?)([\d,.]+)(.*)/);
+      const match = original.trim().match(/^([^0-9]*)([\d,.]+)(.*)$/);
       if (!match) return;
 
       const [, prefix, digits, suffix] = match;
-      const decimals = (digits.match(/\./g) || []).length;
+      // Count decimal places (digits after the dot), not the number of dots.
+      const decimals = (digits.split('.')[1] || '').length;
       const target = parseFloat(digits.replace(/,/g, ''));
       if (isNaN(target)) return;
 
@@ -477,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (catalogueCount) {
-      catalogueCount.textContent = `Showing ${visible} of 214 solutions`;
+      catalogueCount.textContent = `Showing ${visible} of 200+ solutions`;
     }
   }
 
@@ -495,8 +550,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Deep-link from the Industries page: solutions.html?cat=auto
   const requestedCat = new URLSearchParams(window.location.search).get('cat');
+  // Match against the rendered chips instead of interpolating user input into a selector.
   const requestedChip = requestedCat
-    ? document.querySelector(`.filter-chip[data-filter="${requestedCat}"]`)
+    ? Array.from(filterChips).find(chip => chip.dataset.filter === requestedCat) || null
     : null;
 
   if (requestedChip) {
@@ -515,16 +571,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const timeEl = card.querySelector('.region-time');
         if (timeEl && tz) {
           try {
-            const timeStr = new Intl.DateTimeFormat('en-GB', {
+            const parts = new Intl.DateTimeFormat('en-GB', {
               timeZone: tz,
               hour: '2-digit',
               minute: '2-digit',
               second: '2-digit',
-              hour12: false
-            }).format(now);
-            timeEl.textContent = `${timeStr} UTC`;
+              hour12: false,
+              timeZoneName: 'shortOffset'
+            }).formatToParts(now);
+            const part = type => {
+              const found = parts.find(p => p.type === type);
+              return found ? found.value : '';
+            };
+            const timeStr = `${part('hour')}:${part('minute')}:${part('second')}`;
+            const zone = part('timeZoneName');
+            timeEl.textContent = zone ? `${timeStr} ${zone}` : timeStr;
           } catch (e) {
-            // fallback
+            // Older browsers may not support shortOffset; still show local time.
+            try {
+              timeEl.textContent = new Intl.DateTimeFormat('en-GB', {
+                timeZone: tz,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+              }).format(now);
+            } catch (e2) {
+              // Leave the placeholder if the timezone is unsupported.
+            }
           }
         }
       });
@@ -547,141 +621,146 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2800);
   }
 
-  // 13. Apple Store "Buy iPhone" Inspired Interactive Configurator & Sticky Summary Bar
-  const configSection = document.getElementById('configurator');
-  const stickyBar = document.getElementById('appleStickyBar');
+  // 13. Interactive Hero Job Card Hotspot Inspector
+  const hotspotBtns = document.querySelectorAll('.hotspot-pin-btn');
+  const inspectorBadge = document.getElementById('inspectorBadge');
+  const inspectorTitle = document.getElementById('inspectorTitle');
+  const inspectorDesc = document.getElementById('inspectorDesc');
+  const inspectorStat = document.getElementById('inspectorStat');
+  const prevHotspotBtn = document.getElementById('prevHotspotBtn');
+  const nextHotspotBtn = document.getElementById('nextHotspotBtn');
 
-  if (configSection && stickyBar) {
-    const modelCards = configSection.querySelectorAll('.apple-model-cards .apple-select-card');
-    const swatches = configSection.querySelectorAll('.apple-swatches-row .apple-swatch-item');
-    const capCards = configSection.querySelectorAll('.apple-capacity-grid .apple-cap-card');
-    const tradeinCards = configSection.querySelectorAll('.apple-tradein-options .apple-tradein-card');
-
-    const previewBadge = document.getElementById('previewEditionBadge');
-    const previewTitle = document.getElementById('previewDeviceTitle');
-    const previewDesc = document.getElementById('previewDeviceDesc');
-    const previewOee = document.getElementById('previewOee');
-    const previewStockout = document.getElementById('previewStockout');
-    const previewIndustryFeature = document.getElementById('previewIndustryFeature');
-    const finishLabel = document.getElementById('appleFinishLabel');
-
-    const livePriceDisplay = document.getElementById('appleLivePriceDisplay');
-    const liveRoiDisplay = document.getElementById('appleLiveRoiDisplay');
-    const stickySummaryText = document.getElementById('appleStickySummaryText');
-    const stickyPrice = document.getElementById('appleStickyPrice');
-    const stickySavings = document.getElementById('appleStickySavings');
-
-    let state = {
-      model: 'core',
-      modelName: 'ERPrath Industrial Core',
-      basePrice: 45000,
-      baseRoi: 1.42,
-      vertical: 'auto',
-      verticalName: 'Auto Components',
-      verticalFeature: 'VDA 4905 EDI & Subcontracting Ready',
-      scale: '1',
-      scaleLabel: '1 Plant',
-      scaleMult: 1.0,
-      migration: 'yes'
+  if (hotspotBtns.length && inspectorTitle && inspectorDesc && inspectorStat) {
+    const hotspotData = {
+      1: {
+        badge: 'HOTSPOT 1: REAL-TIME MACHINE TELEMETRY',
+        title: 'Automatic Spindle & Cycle Time Tracking (VMC-02)',
+        desc: 'Operators tap to start their shift. The system automatically measures planned 48s cycle time vs actual elapsed time. If spindle idle time exceeds 6 minutes, an immediate reason code (Tool Change, Setup, Inspection) is logged without paper registers.',
+        stat: '<span style="color: #067f37;">&#10003; Floor Impact:</span> Eliminates 100% of end-of-shift paper logbook faking'
+      },
+      2: {
+        badge: 'HOTSPOT 2: HEAT TREATMENT & TOLERANCE GATE',
+        title: 'Furnace Soak Temperature & Pyrometry Gate (860°C)',
+        desc: 'Batch #2/4 cannot advance to OP 30 CNC Grind until the calibrated thermocouple log confirms 860°C soak for 45 minutes and Rockwell hardness tests yield 45-48 HRC. Defective heat runs are locked instantly on the line.',
+        stat: '<span style="color: #067f37;">&#10003; Floor Impact:</span> Zero customer rejections from soft-core metallurgical flaws'
+      },
+      3: {
+        badge: 'HOTSPOT 3: RAW MATERIAL RECONCILIATION & SCRAP',
+        title: 'Tight EN-24 Billet Material Yield & Scrap Control',
+        desc: '120.0 kg inward billet yielded 500 pcs with precisely 1.8 kg (1.5%) turnings discard. Any scrap surge over 2.0% automatically alerts the plant manager before the afternoon melt report.',
+        stat: '<span style="color: #067f37;">&#10003; Floor Impact:</span> Recover ₹18,000–₹42,000 monthly in unaccounted alloy scrap loss'
+      },
+      4: {
+        badge: 'HOTSPOT 4: 1D/2D BARCODE TRACEABILITY',
+        title: 'Instant Job Card Handover via Standard 2D Barcode',
+        desc: 'Floor supervisors scan the laminated route card with any standard ₹1,200 USB barcode scanner or Android rugged PDA. Instantly commits part counts, tool wear, and operator ID to the central database.',
+        stat: '<span style="color: #067f37;">&#10003; Floor Impact:</span> 0.4 second routing transfers with zero keyboard typing errors'
+      }
     };
 
-    function updateAppleConfigurator() {
-      // Calculate dynamic price & ROI
-      const totalMonthly = Math.round(state.basePrice * state.scaleMult - (state.migration === 'yes' ? 4000 : 0));
-      const totalRoiCr = (state.baseRoi * state.scaleMult).toFixed(2);
+    let activeHotspotIndex = 1;
 
-      // Format currency
-      const formattedPrice = `₹${totalMonthly.toLocaleString('en-IN')}/mo.`;
-      const formattedRoi = `₹${totalRoiCr} Cr`;
+    const renderHotspot = (id) => {
+      activeHotspotIndex = parseInt(id, 10);
+      const data = hotspotData[activeHotspotIndex];
+      if (!data) return;
 
-      if (livePriceDisplay) livePriceDisplay.textContent = formattedPrice;
-      if (liveRoiDisplay) liveRoiDisplay.textContent = formattedRoi;
+      hotspotBtns.forEach(btn => {
+        const btnId = parseInt(btn.getAttribute('data-hotspot'), 10);
+        btn.classList.toggle('active', btnId === activeHotspotIndex);
+      });
 
-      if (stickyPrice) stickyPrice.textContent = formattedPrice;
-      if (stickySavings) stickySavings.textContent = `Est. ${formattedRoi}/yr ROI`;
-      if (stickySummaryText) {
-        stickySummaryText.textContent = `${state.modelName} · ${state.verticalName} · ${state.scaleLabel}`;
+      if (inspectorBadge) {
+        inspectorBadge.innerHTML = `<span class="pulse-beacon" style="width: 6px; height: 6px; background: var(--primary); border-radius: 50%;"></span> ${data.badge}`;
       }
+      inspectorTitle.textContent = data.title;
+      inspectorDesc.textContent = data.desc;
+      inspectorStat.innerHTML = data.stat;
+    };
 
-      // Update sticky preview frame
-      if (previewBadge) previewBadge.textContent = state.modelName;
-      if (previewTitle) {
-        previewTitle.textContent = state.model === 'core' 
-          ? 'Single-Facility Production Core' 
-          : 'Multi-Plant Autonomous Cloud Mesh';
-      }
-      if (previewDesc) {
-        previewDesc.textContent = state.model === 'core'
-          ? 'Configured for precision discrete manufacturing with shop-floor MRP, live inventory valuation, and automated GST compliance.'
-          : 'Configured for multi-site industrial groups with real-time PLC/CNC spindle telemetry, VDA EDI, and global consolidation.';
-      }
-      if (previewOee) previewOee.textContent = state.model === 'core' ? '+28.5%' : '+38.4%';
-      if (previewStockout) previewStockout.textContent = state.model === 'core' ? '-65%' : '-82%';
-      if (previewIndustryFeature) previewIndustryFeature.textContent = state.verticalFeature;
-      if (finishLabel) finishLabel.textContent = state.verticalName;
+    hotspotBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = btn.getAttribute('data-hotspot');
+        renderHotspot(id);
+      });
+    });
+
+    if (prevHotspotBtn) {
+      prevHotspotBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        let target = activeHotspotIndex - 1;
+        if (target < 1) target = 4;
+        renderHotspot(target);
+      });
     }
 
-    // Step 1: Model Selection
-    modelCards.forEach(card => {
-      card.addEventListener('click', () => {
-        modelCards.forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-        state.model = card.dataset.model;
-        state.modelName = card.dataset.model === 'core' ? 'ERPrath Industrial Core' : 'ERPrath Enterprise Mesh';
-        state.basePrice = parseFloat(card.dataset.basePrice);
-        state.baseRoi = parseFloat(card.dataset.baseRoi);
-        updateAppleConfigurator();
+    if (nextHotspotBtn) {
+      nextHotspotBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        let target = activeHotspotIndex + 1;
+        if (target > 4) target = 1;
+        renderHotspot(target);
       });
-    });
+    }
+  }
 
-    // Step 2: Swatch Selection
-    swatches.forEach(swatch => {
-      swatch.addEventListener('click', () => {
-        swatches.forEach(s => s.classList.remove('selected'));
-        swatch.classList.add('selected');
-        state.vertical = swatch.dataset.vertical;
-        state.verticalName = swatch.dataset.name;
-        state.verticalFeature = swatch.dataset.feature;
-        updateAppleConfigurator();
-      });
-    });
+  // 14. Silent Shop-Floor Bleed Calculator
+  const machineSlider = document.getElementById('calcMachines');
+  const materialSlider = document.getElementById('calcMaterial');
+  const idleSlider = document.getElementById('calcIdle');
 
-    // Step 3: Capacity Selection
-    capCards.forEach(card => {
-      card.addEventListener('click', () => {
-        capCards.forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-        state.scale = card.dataset.scale;
-        state.scaleLabel = card.dataset.label;
-        state.scaleMult = parseFloat(card.dataset.scaleMult);
-        updateAppleConfigurator();
-      });
-    });
+  const machineValEl = document.getElementById('calcMachinesVal');
+  const materialValEl = document.getElementById('calcMaterialVal');
+  const idleValEl = document.getElementById('calcIdleVal');
 
-    // Step 4: Trade-In Selection
-    tradeinCards.forEach(card => {
-      card.addEventListener('click', () => {
-        tradeinCards.forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-        state.migration = card.dataset.migration;
-        updateAppleConfigurator();
-      });
-    });
+  const totalBleedEl = document.getElementById('totalBleedVal');
+  const scrapBleedEl = document.getElementById('scrapBleedVal');
+  const idleBleedEl = document.getElementById('idleBleedVal');
+  const jobworkBleedEl = document.getElementById('jobworkBleedVal');
+  const daysToEqualEl = document.getElementById('daysToEqualERP');
 
-    // Sticky Summary Bar Scroll Reveal (Apple Buy iPhone pattern)
-    const toggleStickyBar = () => {
-      const scrollPos = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      
-      // Reveal sticky bar once user scrolls past 350px
-      if (scrollPos > 350 && scrollPos < docHeight - 250) {
-        stickyBar.classList.add('active');
-      } else {
-        stickyBar.classList.remove('active');
-      }
+  if (machineSlider && materialSlider && idleSlider && totalBleedEl) {
+    const formatINR = (val) => {
+      return '₹' + Math.round(val).toLocaleString('en-IN');
     };
 
-    window.addEventListener('scroll', toggleStickyBar, { passive: true });
-    updateAppleConfigurator();
+    const updateBleedCalc = () => {
+      const machines = parseInt(machineSlider.value, 10);
+      const materialSpendLakhs = parseFloat(materialSlider.value);
+      const materialSpend = materialSpendLakhs * 100000;
+      const idleMins = parseInt(idleSlider.value, 10);
+
+      if (machineValEl) machineValEl.textContent = `${machines} Cells`;
+      if (materialValEl) materialValEl.textContent = `₹${materialSpendLakhs.toFixed(1)} Lakhs/mo`;
+      if (idleValEl) idleValEl.textContent = `${idleMins} Mins/shift`;
+
+      // 1. Scrap reconciliation variance (1.8% average unaccounted runner/burr/turnings)
+      const scrapLoss = materialSpend * 0.018;
+
+      // 2. Ghost machine idle time (2 shifts, 26 days/mo, machine hour rate ₹450)
+      const idleLoss = machines * (idleMins / 60) * 2 * 26 * 450;
+
+      // 3. Delayed job-work 54(4) material reconciliation & rejection dispute (1.0%)
+      const jobworkLoss = materialSpend * 0.01;
+
+      const totalMonthlyBleed = scrapLoss + idleLoss + jobworkLoss;
+
+      // Days to equal annual ERPrath Standard Plan (₹25,000)
+      const dailyBleed = totalMonthlyBleed / 30;
+      const daysToEqual = Math.max(1, Math.round(25000 / dailyBleed));
+
+      if (totalBleedEl) totalBleedEl.textContent = `${formatINR(totalMonthlyBleed)} / mo`;
+      if (scrapBleedEl) scrapBleedEl.textContent = formatINR(scrapLoss);
+      if (idleBleedEl) idleBleedEl.textContent = formatINR(idleLoss);
+      if (jobworkBleedEl) jobworkBleedEl.textContent = formatINR(jobworkLoss);
+      if (daysToEqualEl) daysToEqualEl.textContent = `${daysToEqual} days`;
+    };
+
+    machineSlider.addEventListener('input', updateBleedCalc);
+    materialSlider.addEventListener('input', updateBleedCalc);
+    idleSlider.addEventListener('input', updateBleedCalc);
+
+    updateBleedCalc();
   }
 });

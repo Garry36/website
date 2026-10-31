@@ -1,5 +1,5 @@
 /* ============================================================
-   ERPrath Product Catalogue — 214 premium digital solutions
+   ERPrath Product Catalogue — 200+ premium digital solutions
    Renders into #productGrid. Data-driven for performance:
    the HTML stays light and the grid is built in one pass.
    ============================================================ */
